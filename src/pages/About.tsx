@@ -1,5 +1,8 @@
 import { motion } from "framer-motion";
 import { Code2, Rocket, Users, Zap } from "lucide-react";
+import GlassCard from "@/components/ui/glass-card";
+import DepthLayer from "@/components/ui/depth-layer";
+import ScrollReveal from "@/components/interactions/ScrollReveal";
 
 const values = [
   {
@@ -38,7 +41,7 @@ export default function About() {
             About Me
           </h1>
           
-          <div className="glass-panel p-8 md:p-12 mb-12">
+          <GlassCard variant="translucent" intensity="high" className="mb-12">
             <p className="text-xl text-muted-foreground leading-relaxed mb-6">
               Hi! I'm <span className="text-primary font-semibold">Shubham Kushvanshi</span>, 
               a passionate MERN Stack Developer with a strong foundation in building modern, 
@@ -58,7 +61,7 @@ export default function About() {
               <span className="text-accent font-semibold"> Web3 technologies</span>. My goal is to contribute to innovative 
               solutions that shape the future of financial technology and decentralized applications.
             </p>
-          </div>
+          </GlassCard>
 
           <h2 className="text-4xl font-bold mb-8 text-foreground">
             What Drives Me
@@ -66,21 +69,19 @@ export default function About() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {values.map((value, index) => (
-              <motion.div
-                key={value.title}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="glass-panel p-8 hover-lift"
-              >
-                <value.icon className="h-12 w-12 text-primary mb-4" />
-                <h3 className="text-2xl font-semibold mb-3 text-foreground">
-                  {value.title}
-                </h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  {value.description}
-                </p>
-              </motion.div>
+              <ScrollReveal key={value.title} variant="scaleIn" delay={index * 0.1}>
+                <DepthLayer level="floating">
+                  <GlassCard variant="frosted" className="hover-lift">
+                    <value.icon className="h-12 w-12 text-primary mb-4" />
+                    <h3 className="text-2xl font-semibold mb-3 text-foreground">
+                      {value.title}
+                    </h3>
+                    <p className="text-muted-foreground leading-relaxed">
+                      {value.description}
+                    </p>
+                  </GlassCard>
+                </DepthLayer>
+              </ScrollReveal>
             ))}
           </div>
 
@@ -88,17 +89,19 @@ export default function About() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="glass-panel p-8 md:p-12 mt-12"
+            className="mt-12"
           >
-            <h2 className="text-3xl font-bold mb-6 text-foreground">
-              Beyond Coding
-            </h2>
-            <p className="text-xl text-muted-foreground leading-relaxed">
-              When I'm not coding, you can find me exploring new technologies, 
-              contributing to open-source projects, or diving deep into the latest 
-              trends in blockchain and Web3. I'm also an avid learner with multiple 
-              certifications in Full Stack Development and Ethereum Blockchain Development.
-            </p>
+            <GlassCard variant="translucent">
+              <h2 className="text-3xl font-bold mb-6 text-foreground">
+                Beyond Coding
+              </h2>
+              <p className="text-xl text-muted-foreground leading-relaxed">
+                When I'm not coding, you can find me exploring new technologies, 
+                contributing to open-source projects, or diving deep into the latest 
+                trends in blockchain and Web3. I'm also an avid learner with multiple 
+                certifications in Full Stack Development and Ethereum Blockchain Development.
+              </p>
+            </GlassCard>
           </motion.div>
         </motion.div>
       </div>

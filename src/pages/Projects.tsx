@@ -1,6 +1,10 @@
 import { motion } from "framer-motion";
 import { ExternalLink, Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import GlassCard from "@/components/ui/glass-card";
+import DepthLayer from "@/components/ui/depth-layer";
+import ScrollReveal from "@/components/interactions/ScrollReveal";
+import LiquidButton from "@/components/interactions/LiquidButton";
 
 const projects = [
   {
@@ -61,62 +65,60 @@ export default function Projects() {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {projects.map((project, index) => (
-              <motion.div
-                key={project.title}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="glass-panel p-8 hover-lift"
-              >
-                <h2 className="text-2xl font-bold mb-4 text-foreground">
-                  {project.title}
-                </h2>
-                
-                <p className="text-muted-foreground leading-relaxed mb-6">
-                  {project.description}
-                </p>
+              <ScrollReveal key={project.title} delay={index * 0.1}>
+                <DepthLayer level="elevated">
+                  <GlassCard variant="frosted" className="h-full hover-glow">
+                    <h2 className="text-2xl font-bold mb-4 gradient-text">
+                      {project.title}
+                    </h2>
+                    
+                    <p className="text-muted-foreground leading-relaxed mb-6">
+                      {project.description}
+                    </p>
 
-                <div className="mb-6">
-                  <h3 className="text-sm font-semibold text-accent mb-3">
-                    KEY FEATURES
-                  </h3>
-                  <ul className="space-y-2">
-                    {project.highlights.map((highlight, idx) => (
-                      <li key={idx} className="flex items-start gap-2 text-sm text-muted-foreground">
-                        <span className="text-primary mt-1">▸</span>
-                        {highlight}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                    <div className="mb-6">
+                      <h3 className="text-sm font-semibold text-accent mb-3">
+                        KEY FEATURES
+                      </h3>
+                      <ul className="space-y-2">
+                        {project.highlights.map((highlight, idx) => (
+                          <li key={idx} className="flex items-start gap-2 text-sm text-muted-foreground">
+                            <span className="text-primary mt-1">▸</span>
+                            {highlight}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
 
-                <div className="mb-6">
-                  <h3 className="text-sm font-semibold text-accent mb-3">
-                    TECH STACK
-                  </h3>
-                  <div className="flex flex-wrap gap-2">
-                    {project.techStack.map((tech) => (
-                      <span
-                        key={tech}
-                        className="px-3 py-1 bg-secondary/50 backdrop-blur-sm text-xs font-medium text-foreground rounded-full border border-border"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
+                    <div className="mb-6">
+                      <h3 className="text-sm font-semibold text-accent mb-3">
+                        TECH STACK
+                      </h3>
+                      <div className="flex flex-wrap gap-2">
+                        {project.techStack.map((tech) => (
+                          <span
+                            key={tech}
+                            className="px-3 py-1 bg-secondary/50 backdrop-blur-sm text-xs font-medium text-foreground rounded-full border border-border"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
 
-                <div className="flex gap-3">
-                  <Button variant="outline" size="sm" className="glass-panel hover-glow">
-                    <Github className="h-4 w-4 mr-2" />
-                    Code
-                  </Button>
-                  <Button variant="outline" size="sm" className="glass-panel hover-glow">
-                    <ExternalLink className="h-4 w-4 mr-2" />
-                    Demo
-                  </Button>
-                </div>
-              </motion.div>
+                    <div className="flex gap-3">
+                      <Button variant="outline" size="sm">
+                        <Github className="h-4 w-4 mr-2" />
+                        Code
+                      </Button>
+                      <LiquidButton className="text-sm">
+                        <ExternalLink className="h-4 w-4 mr-2" />
+                        Demo
+                      </LiquidButton>
+                    </div>
+                  </GlassCard>
+                </DepthLayer>
+              </ScrollReveal>
             ))}
           </div>
         </motion.div>
