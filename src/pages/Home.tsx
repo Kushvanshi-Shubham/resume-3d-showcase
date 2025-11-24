@@ -5,6 +5,7 @@ import Hero3D from "@/components/Hero3D";
 import { Link } from "react-router-dom";
 import MagneticButton from "@/components/interactions/MagneticButton";
 import ScrollReveal from "@/components/interactions/ScrollReveal";
+import GlassCard from "@/components/ui/glass-card";
 import { staggerChildren } from "@/lib/motion-config";
 
 export default function Home() {
@@ -124,10 +125,10 @@ export default function Home() {
             { number: "5+", label: "Technologies Mastered" },
           ].map((stat, index) => (
             <ScrollReveal key={index} variant="fadeInUp" delay={index * 0.1}>
-              <div className="glass-panel p-8 text-center hover-lift">
+              <GlassCard variant="opaque" className="text-center hover-scale">
                 <div className="text-5xl font-bold gradient-text mb-2">{stat.number}</div>
                 <div className="text-muted-foreground">{stat.label}</div>
-              </div>
+              </GlassCard>
             </ScrollReveal>
           ))}
         </motion.div>
