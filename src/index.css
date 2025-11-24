@@ -8,6 +8,7 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
+    /* Base colors - defaults to VisionOS theme, dynamically updated by ThemeContext */
     --background: 220 25% 10%;
     --foreground: 220 20% 98%;
 
@@ -19,7 +20,6 @@ All colors MUST be HSL.
 
     --primary: 262 80% 60%;
     --primary-foreground: 220 20% 98%;
-    
     --primary-glow: 262 80% 70%;
     --primary-dark: 262 70% 45%;
 
@@ -31,7 +31,6 @@ All colors MUST be HSL.
 
     --accent: 190 85% 55%;
     --accent-foreground: 220 20% 98%;
-    
     --accent-glow: 190 85% 65%;
 
     --destructive: 0 70% 55%;
@@ -41,6 +40,23 @@ All colors MUST be HSL.
     --input: 220 20% 18%;
     --ring: 262 80% 60%;
 
+    --radius: 1rem;
+    
+    /* Semantic surface tokens */
+    --surface-primary: var(--background);
+    --surface-secondary: var(--card);
+    --surface-tertiary: var(--muted);
+    
+    /* Feedback colors */
+    --success: 142 76% 45%;
+    --success-foreground: 0 0% 100%;
+    --warning: 45 93% 58%;
+    --warning-foreground: 0 0% 10%;
+    --danger: var(--destructive);
+    --danger-foreground: var(--destructive-foreground);
+    --info: 210 100% 56%;
+    --info-foreground: 0 0% 100%;
+    
     --radius: 1rem;
     
     /* Gradients */
@@ -60,10 +76,20 @@ All colors MUST be HSL.
 }
 
 @layer utilities {
+  /* Glass Effects */
   .glass-panel {
     @apply bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4)];
   }
   
+  .glass-frosted {
+    @apply bg-white/10 backdrop-blur-2xl border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.3)];
+  }
+  
+  .glass-translucent {
+    @apply bg-white/[0.03] backdrop-blur-md border border-white/5 shadow-[0_4px_16px_rgba(0,0,0,0.2)];
+  }
+  
+  /* Gradient Effects */
   .gradient-text {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-primary-glow;
   }
@@ -72,12 +98,30 @@ All colors MUST be HSL.
     @apply relative before:absolute before:inset-0 before:rounded-[inherit] before:p-[1px] before:bg-gradient-to-r before:from-primary before:via-accent before:to-primary-glow before:content-[''] before:-z-10;
   }
   
+  /* Hover Effects */
   .hover-glow {
-    @apply transition-all duration-300 hover:shadow-[0_0_30px_hsl(262_80%_60%/0.3)];
+    @apply transition-all duration-300 hover:shadow-[0_0_30px_hsl(var(--primary)/0.3)];
   }
   
   .hover-lift {
     @apply transition-transform duration-300 hover:-translate-y-2;
+  }
+  
+  .hover-scale {
+    @apply transition-transform duration-200 hover:scale-105;
+  }
+  
+  /* Fluid Typography */
+  .text-fluid-display {
+    @apply text-fluid-5xl font-heading font-bold tracking-tight;
+  }
+  
+  .text-fluid-heading {
+    @apply text-fluid-3xl font-heading font-semibold tracking-tight;
+  }
+  
+  .text-fluid-body {
+    @apply text-fluid-base font-sans leading-relaxed;
   }
 }
 
@@ -87,6 +131,36 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: "liga" 1, "calt" 1, "kern" 1;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+  }
+  
+  /* Focus styles for accessibility */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+  
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Respect reduced motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }

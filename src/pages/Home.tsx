@@ -16,7 +16,7 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-6xl md:text-8xl font-bold mb-6 gradient-text">
+            <h1 className="text-fluid-5xl font-heading font-bold mb-6 gradient-text">
               Shubham Kushvanshi
             </h1>
           </motion.div>
@@ -26,7 +26,7 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <h2 className="text-3xl md:text-4xl font-semibold mb-8 text-foreground">
+            <h2 className="text-fluid-3xl font-heading font-semibold mb-8 text-foreground">
               MERN Stack Developer
             </h2>
           </motion.div>
@@ -35,7 +35,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-xl text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed"
+            className="text-fluid-lg text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed"
           >
             Crafting scalable, secure, and high-performance full-stack applications 
             with a passion for modern web technologies and innovative fintech solutions.
