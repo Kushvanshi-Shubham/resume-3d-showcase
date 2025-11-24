@@ -1,6 +1,7 @@
 import { NavLink } from "@/components/NavLink";
 import { Home, User, Briefcase, FolderGit2, Code2, FileText, Mail } from "lucide-react";
 import { motion } from "framer-motion";
+import ThemeToggle from "./ThemeToggle";
 
 const navItems = [
   { to: "/", label: "Home", icon: Home },
@@ -37,9 +38,10 @@ export default function Navigation() {
                 {item.label}
               </NavLink>
             ))}
+            <ThemeToggle />
           </div>
 
-          <div className="md:hidden flex gap-4">
+          <div className="md:hidden flex gap-2 items-center">
             {navItems.map((item) => (
               <NavLink
                 key={item.to}
@@ -50,6 +52,7 @@ export default function Navigation() {
                 <item.icon className="h-5 w-5" />
               </NavLink>
             ))}
+            <ThemeToggle />
           </div>
         </div>
       </div>
