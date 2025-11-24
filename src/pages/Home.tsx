@@ -3,6 +3,9 @@ import { ArrowRight, Github, Linkedin, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Hero3D from "@/components/Hero3D";
 import { Link } from "react-router-dom";
+import MagneticButton from "@/components/interactions/MagneticButton";
+import ScrollReveal from "@/components/interactions/ScrollReveal";
+import { staggerChildren } from "@/lib/motion-config";
 
 export default function Home() {
   return (
@@ -66,35 +69,53 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.8 }}
             className="flex gap-6 justify-center"
           >
-            <a
-              href="https://github.com/Kushvanshi-Shubh"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="glass-panel p-4 rounded-full hover-glow hover-lift"
+            <MagneticButton
+              strength={0.4}
+              range={120}
+              className="inline-block"
             >
-              <Github className="h-6 w-6" />
-            </a>
-            <a
-              href="https://linkedin.com/in/shubham-kushvanshi"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="glass-panel p-4 rounded-full hover-glow hover-lift"
+              <a
+                href="https://github.com/Kushvanshi-Shubh"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="glass-panel p-4 rounded-full hover-glow hover-lift block"
+              >
+                <Github className="h-6 w-6" />
+              </a>
+            </MagneticButton>
+            <MagneticButton
+              strength={0.4}
+              range={120}
+              className="inline-block"
             >
-              <Linkedin className="h-6 w-6" />
-            </a>
-            <a
-              href="mailto:shubhamkushvanshi@gmail.com"
-              className="glass-panel p-4 rounded-full hover-glow hover-lift"
+              <a
+                href="https://linkedin.com/in/shubham-kushvanshi"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="glass-panel p-4 rounded-full hover-glow hover-lift block"
+              >
+                <Linkedin className="h-6 w-6" />
+              </a>
+            </MagneticButton>
+            <MagneticButton
+              strength={0.4}
+              range={120}
+              className="inline-block"
             >
-              <Mail className="h-6 w-6" />
-            </a>
+              <a
+                href="mailto:shubhamkushvanshi@gmail.com"
+                className="glass-panel p-4 rounded-full hover-glow hover-lift block"
+              >
+                <Mail className="h-6 w-6" />
+              </a>
+            </MagneticButton>
           </motion.div>
         </div>
 
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 1 }}
+          initial="hidden"
+          animate="visible"
+          variants={staggerChildren}
           className="mt-32 grid grid-cols-1 md:grid-cols-3 gap-8"
         >
           {[
@@ -102,10 +123,12 @@ export default function Home() {
             { number: "10+", label: "Projects Completed" },
             { number: "5+", label: "Technologies Mastered" },
           ].map((stat, index) => (
-            <div key={index} className="glass-panel p-8 text-center hover-lift">
-              <div className="text-5xl font-bold gradient-text mb-2">{stat.number}</div>
-              <div className="text-muted-foreground">{stat.label}</div>
-            </div>
+            <ScrollReveal key={index} variant="fadeInUp" delay={index * 0.1}>
+              <div className="glass-panel p-8 text-center hover-lift">
+                <div className="text-5xl font-bold gradient-text mb-2">{stat.number}</div>
+                <div className="text-muted-foreground">{stat.label}</div>
+              </div>
+            </ScrollReveal>
           ))}
         </motion.div>
       </div>
