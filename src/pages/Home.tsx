@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Github, Linkedin, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import Hero3D from "@/components/Hero3D";
 import { Link } from "react-router-dom";
 import MagneticButton from "@/components/interactions/MagneticButton";
 import ScrollReveal from "@/components/interactions/ScrollReveal";
@@ -10,8 +9,7 @@ import { staggerChildren } from "@/lib/motion-config";
 
 export default function Home() {
   return (
-    <div className="min-h-screen relative overflow-hidden">
-      <Hero3D />
+    <div className="min-h-screen relative overflow-hidden">{/* Hero3D is now global in App.tsx */}
       
       <div className="relative z-10 container mx-auto px-6 pt-32 pb-20">
         <div className="max-w-4xl mx-auto text-center">
