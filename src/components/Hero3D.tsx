@@ -20,8 +20,10 @@ function AnimatedSphere() {
   
   useFrame((state) => {
     if (meshRef.current) {
-      meshRef.current.rotation.x = state.clock.getElapsedTime() * 0.2;
-      meshRef.current.rotation.y = state.clock.getElapsedTime() * 0.3;
+      // Smoother rotation with easing
+      const time = state.clock.getElapsedTime();
+      meshRef.current.rotation.x = Math.sin(time * 0.2) * 0.5;
+      meshRef.current.rotation.y = time * 0.3;
     }
   });
 
@@ -84,14 +86,15 @@ function SceneCleanup() {
 function MouseReactiveLight() {
   const lightRef = useRef<THREE.PointLight>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const targetPosRef = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
       const x = (event.clientX / window.innerWidth) * 2 - 1;
       const y = -(event.clientY / window.innerHeight) * 2 + 1;
-      setMousePos({ x, y });
+      targetPosRef.current = { x, y };
 
-      // Determine quadrant color
+      // Determine quadrant color with smooth transitions
       if (lightRef.current) {
         let color: number;
         if (x > 0 && y > 0) color = 0xa855f7; // Purple
@@ -103,36 +106,44 @@ function MouseReactiveLight() {
       }
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
   useFrame(() => {
     if (lightRef.current) {
+      // Smoother lerp for buttery transitions
       lightRef.current.position.x = THREE.MathUtils.lerp(
         lightRef.current.position.x,
-        mousePos.x * 5,
-        0.05
+        targetPosRef.current.x * 5,
+        0.08
       );
       lightRef.current.position.y = THREE.MathUtils.lerp(
         lightRef.current.position.y,
-        mousePos.y * 5,
-        0.05
+        targetPosRef.current.y * 5,
+        0.08
       );
     }
   });
 
-  return <pointLight ref={lightRef} position={[0, 0, 5]} intensity={1} />;
+  return <pointLight ref={lightRef} position={[0, 0, 5]} intensity={1.2} distance={10} decay={2} />;
 }
 
 export default function Hero3D() {
   const { isPerformanceMode } = usePerformanceMode();
   const [contextKey, setContextKey] = useState(0);
+  const [isReady, setIsReady] = useState(false);
   usePerformanceMonitor();
 
-  // Return fallback on low-end mobile devices
+  // Return null on low-end mobile devices (parent shows fallback)
   if (isMobile && isLowEndDevice) {
-    return null; // Parent will show fallback
+    return null;
+  }
+
+  // Check for reduced motion preference
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReducedMotion) {
+    return null;
   }
 
   const handleContextLost = (event: Event) => {
@@ -154,7 +165,7 @@ export default function Hero3D() {
   const dpr = isPerformanceMode ? 1 : isMobile ? 1 : maxDpr;
 
   return (
-    <div className="absolute inset-0 -z-10">
+    <div className={`absolute inset-0 -z-10 transition-opacity duration-1000 ${isReady ? 'opacity-100' : 'opacity-0'}`}>
       <Canvas 
         key={contextKey}
         camera={{ position: [0, 0, 5], fov: 75 }}
@@ -163,21 +174,24 @@ export default function Hero3D() {
         onCreated={({ gl }) => {
           gl.domElement.addEventListener('webglcontextlost', handleContextLost);
           gl.domElement.addEventListener('webglcontextrestored', handleContextRestored);
+          // Mark as ready after first render
+          setTimeout(() => setIsReady(true), 100);
         }}
         gl={{ 
-          preserveDrawingBuffer: false, // Changed to false to save memory
-          powerPreference: 'high-performance',
+          preserveDrawingBuffer: false,
+          powerPreference: isPerformanceMode ? 'low-power' : 'high-performance',
           antialias: !isPerformanceMode && !isMobile,
           alpha: true,
-          stencil: false, // Disable stencil buffer to save memory
+          stencil: false,
           depth: true,
+          failIfMajorPerformanceCaveat: false, // Don't fail on slower devices, just adapt
         }}
       >
         <ambientLight intensity={0.5} />
         <MouseReactiveLight />
         <AnimatedSphere />
         <SoftParticles count={particleCount} />
-        <BloomEffect />
+        {!isPerformanceMode && <BloomEffect />}
         <SceneCleanup />
       </Canvas>
     </div>

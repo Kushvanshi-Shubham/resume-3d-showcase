@@ -14,7 +14,7 @@ export default function SoftParticles({
   count = 50,
   color = '#06b6d4',
   size = 0.05,
-  speed = 0.05,
+  speed = 0.03, // Reduced from 0.05 for smoother motion
 }: SoftParticlesProps) {
   const { isPerformanceMode } = usePerformanceMode();
   const particlesRef = useRef<THREE.Points>(null);
@@ -31,7 +31,10 @@ export default function SoftParticles({
 
   useFrame((state) => {
     if (particlesRef.current) {
-      particlesRef.current.rotation.y = state.clock.getElapsedTime() * speed;
+      // Smoother rotation with sine wave
+      const time = state.clock.getElapsedTime();
+      particlesRef.current.rotation.y = Math.sin(time * speed) * 2;
+      particlesRef.current.rotation.x = Math.cos(time * speed * 0.5) * 0.5;
     }
   });
 
