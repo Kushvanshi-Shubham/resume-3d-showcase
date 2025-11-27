@@ -9,45 +9,54 @@ import { staggerChildren } from "@/lib/motion-config";
 
 export default function Home() {
   return (
-    <div className="min-h-screen relative overflow-hidden">{/* Hero3D is now global in App.tsx */}
+    <div className="min-h-screen relative overflow-hidden">
+      {/* Hero3D is now global in App.tsx */}
       
       <div className="relative z-10 container mx-auto px-6 pt-32 pb-20">
-        <div className="max-w-4xl mx-auto text-center">
+        <div className="max-w-3xl text-left">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-fluid-5xl font-heading font-bold mb-6 gradient-text">
-              Shubham Kushvanshi
+            <p className="text-accent mb-4 font-medium">Welcome to my portfolio</p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.1 }}
+          >
+            <h1 className="text-6xl md:text-7xl font-heading font-bold mb-2">
+              I'm <span className="gradient-text">Shubham</span>
             </h1>
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <h2 className="text-fluid-3xl font-heading font-semibold mb-8 text-foreground">
-              MERN Stack Developer
-            </h2>
+            <h1 className="text-6xl md:text-7xl font-heading font-bold gradient-text mb-8">
+              Kushvanshi
+            </h1>
           </motion.div>
 
           <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-fluid-lg text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed"
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="text-xl text-muted-foreground mb-12 max-w-xl leading-relaxed"
           >
-            Crafting scalable, secure, and high-performance full-stack applications 
-            with a passion for modern web technologies and innovative fintech solutions.
+            Building scalable, secure, and high-performance web applications with 
+            modern technologies and innovative solutions.
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex flex-wrap gap-4 justify-center mb-16"
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="flex flex-wrap gap-4 mb-12"
           >
             <Link to="/projects">
               <Button size="lg" className="glass-panel hover-glow group">
@@ -65,8 +74,8 @@ export default function Home() {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-            className="flex gap-6 justify-center"
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="flex gap-4"
           >
             <MagneticButton
               strength={0.4}
