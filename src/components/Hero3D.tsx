@@ -1,33 +1,28 @@
 import { useRef, useState, useEffect } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { MeshDistortMaterial, Sphere, Float } from '@react-three/drei';
+import { Sphere, Float, Environment, Center, Text3D } from '@react-three/drei';
 import * as THREE from 'three';
 import BloomEffect from './effects/BloomEffect';
 import SoftParticles from './effects/SoftParticles';
+import InternalParticles from './effects/InternalParticles';
 import { usePerformanceMode } from '@/contexts/PerformanceContext';
 import { usePerformanceMonitor } from '@/hooks/usePerformanceMonitor';
 
-// Detect mobile and low-end devices
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 const isLowEndDevice = navigator.hardwareConcurrency <= 4;
 
-function AnimatedSphere() {
+// Glass Bubble with realistic materials
+function GlassBubble() {
   const meshRef = useRef<THREE.Mesh>(null);
-  const { isPerformanceMode } = usePerformanceMode();
-  
-  // Optimize sphere complexity based on device
-  const segments = isPerformanceMode ? 16 : isMobile ? 24 : 32;
   
   useFrame((state) => {
     if (meshRef.current) {
-      // Smoother rotation with easing
       const time = state.clock.getElapsedTime();
-      meshRef.current.rotation.x = Math.sin(time * 0.2) * 0.5;
-      meshRef.current.rotation.y = time * 0.3;
+      meshRef.current.rotation.x = Math.sin(time * 0.15) * 0.3;
+      meshRef.current.rotation.y = time * 0.2;
     }
   });
 
-  // Cleanup on unmount
   useEffect(() => {
     return () => {
       if (meshRef.current) {
@@ -41,17 +36,95 @@ function AnimatedSphere() {
   }, []);
 
   return (
-    <Float speed={isPerformanceMode ? 1 : 2} rotationIntensity={0.5} floatIntensity={1}>
-      <Sphere ref={meshRef} args={[1, segments, segments]} scale={2.5}>
-        <MeshDistortMaterial
-          color="#a855f7"
-          attach="material"
-          distort={isPerformanceMode ? 0.1 : 0.4}
-          speed={isPerformanceMode ? 1 : 2}
-          roughness={0.2}
-          metalness={0.8}
+    <Float speed={1.5} rotationIntensity={0.3} floatIntensity={0.8}>
+      <Sphere ref={meshRef} args={[1, 64, 64]} scale={4.5} position={[4, 0, 0]}>
+        <meshPhysicalMaterial
+          color="#0ea5e9"
+          transmission={0.92}
+          thickness={2}
+          roughness={0.05}
+          metalness={0.2}
+          clearcoat={1}
+          clearcoatRoughness={0.05}
+          envMapIntensity={2}
+          ior={1.45}
+          transparent
+          opacity={0.95}
         />
       </Sphere>
+      {/* Add visible glow ring */}
+      <Sphere args={[1, 32, 32]} scale={4.8} position={[4, 0, 0]}>
+        <meshBasicMaterial
+          color="#0ea5e9"
+          transparent
+          opacity={0.15}
+        />
+      </Sphere>
+    </Float>
+  );
+}
+
+// Simplified bubble for performance mode
+function SimpleGlassBubble() {
+  const meshRef = useRef<THREE.Mesh>(null);
+  
+  useFrame((state) => {
+    if (meshRef.current) {
+      meshRef.current.rotation.y = state.clock.getElapsedTime() * 0.2;
+    }
+  });
+
+  return (
+    <Sphere ref={meshRef} args={[1, 32, 32]} scale={4} position={[4, 0, 0]}>
+      <meshStandardMaterial
+        color="#0ea5e9"
+        metalness={0.6}
+        roughness={0.2}
+        transparent
+        opacity={0.8}
+        emissive="#0ea5e9"
+        emissiveIntensity={0.2}
+      />
+    </Sphere>
+  );
+}
+
+// 3D Text Component
+function Text3DEffect() {
+  const textRef = useRef<THREE.Mesh>(null);
+
+  useFrame((state) => {
+    if (textRef.current) {
+      textRef.current.position.y = Math.sin(state.clock.getElapsedTime() * 0.5) * 0.1;
+    }
+  });
+
+  return (
+    <Float speed={1.5} rotationIntensity={0.2} floatIntensity={0.3}>
+      <Center position={[-3.5, 0.5, 0]}>
+        <Text3D
+          ref={textRef}
+          font="/fonts/helvetiker_regular.typeface.json"
+          size={0.6}
+          height={0.15}
+          curveSegments={12}
+          bevelEnabled
+          bevelThickness={0.02}
+          bevelSize={0.01}
+          bevelSegments={5}
+        >
+          Shubham
+          <meshPhysicalMaterial
+            color="#06b6d4"
+            metalness={0.9}
+            roughness={0.1}
+            clearcoat={1}
+            clearcoatRoughness={0.1}
+            emissive="#0ea5e9"
+            emissiveIntensity={0.2}
+          />
+        </Text3D>
+      </Center>
     </Float>
   );
 }
@@ -61,7 +134,6 @@ function SceneCleanup() {
 
   useEffect(() => {
     return () => {
-      // Cleanup Three.js resources on unmount
       scene.traverse((object) => {
         if (object instanceof THREE.Mesh) {
           if (object.geometry) object.geometry.dispose();
@@ -74,8 +146,6 @@ function SceneCleanup() {
           }
         }
       });
-      
-      // Dispose renderer resources
       gl.dispose();
     };
   }, [scene, gl]);
@@ -85,7 +155,6 @@ function SceneCleanup() {
 
 function MouseReactiveLight() {
   const lightRef = useRef<THREE.PointLight>(null);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const targetPosRef = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
@@ -94,13 +163,12 @@ function MouseReactiveLight() {
       const y = -(event.clientY / window.innerHeight) * 2 + 1;
       targetPosRef.current = { x, y };
 
-      // Determine quadrant color with smooth transitions
       if (lightRef.current) {
         let color: number;
-        if (x > 0 && y > 0) color = 0xa855f7; // Purple
-        else if (x < 0 && y > 0) color = 0x06b6d4; // Blue
-        else if (x < 0 && y < 0) color = 0x22d3ee; // Cyan
-        else color = 0xec4899; // Pink
+        if (x > 0 && y > 0) color = 0x06b6d4;
+        else if (x < 0 && y > 0) color = 0x0ea5e9;
+        else if (x < 0 && y < 0) color = 0x22d3ee;
+        else color = 0x38bdf8;
         
         lightRef.current.color.setHex(color);
       }
@@ -112,7 +180,6 @@ function MouseReactiveLight() {
 
   useFrame(() => {
     if (lightRef.current) {
-      // Smoother lerp for buttery transitions
       lightRef.current.position.x = THREE.MathUtils.lerp(
         lightRef.current.position.x,
         targetPosRef.current.x * 5,
@@ -126,7 +193,7 @@ function MouseReactiveLight() {
     }
   });
 
-  return <pointLight ref={lightRef} position={[0, 0, 5]} intensity={1.2} distance={10} decay={2} />;
+  return <pointLight ref={lightRef} position={[0, 0, 5]} intensity={1.5} distance={12} decay={2} />;
 }
 
 export default function Hero3D() {
@@ -135,16 +202,7 @@ export default function Hero3D() {
   const [isReady, setIsReady] = useState(false);
   usePerformanceMonitor();
 
-  // Return null on low-end mobile devices (parent shows fallback)
-  if (isMobile && isLowEndDevice) {
-    return null;
-  }
-
-  // Check for reduced motion preference
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (prefersReducedMotion) {
-    return null;
-  }
+  const shouldSimplify = isMobile && isLowEndDevice;
 
   const handleContextLost = (event: Event) => {
     event.preventDefault();
@@ -153,47 +211,65 @@ export default function Hero3D() {
 
   const handleContextRestored = () => {
     console.log('WebGL context restored successfully.');
-    // Force remount to recreate scene
     setContextKey(prev => prev + 1);
   };
 
-  // Optimize particle count based on device
   const particleCount = isPerformanceMode ? 15 : isMobile ? 30 : 50;
-  
-  // Cap DPI to prevent GPU overload
-  const maxDpr = Math.min(window.devicePixelRatio, 2);
+  const maxDpr = Math.min(window.devicePixelRatio, 1.5);
   const dpr = isPerformanceMode ? 1 : isMobile ? 1 : maxDpr;
 
   return (
-    <div className={`absolute inset-0 -z-10 transition-opacity duration-1000 ${isReady ? 'opacity-100' : 'opacity-0'}`}>
-      <Canvas 
-        key={contextKey}
-        camera={{ position: [0, 0, 5], fov: 75 }}
-        frameloop={isPerformanceMode || isMobile ? 'demand' : 'always'}
-        dpr={dpr}
-        onCreated={({ gl }) => {
-          gl.domElement.addEventListener('webglcontextlost', handleContextLost);
-          gl.domElement.addEventListener('webglcontextrestored', handleContextRestored);
-          // Mark as ready after first render
-          setTimeout(() => setIsReady(true), 100);
-        }}
-        gl={{ 
-          preserveDrawingBuffer: false,
-          powerPreference: isPerformanceMode ? 'low-power' : 'high-performance',
-          antialias: !isPerformanceMode && !isMobile,
-          alpha: true,
-          stencil: false,
-          depth: true,
-          failIfMajorPerformanceCaveat: false, // Don't fail on slower devices, just adapt
-        }}
-      >
-        <ambientLight intensity={0.5} />
-        <MouseReactiveLight />
-        <AnimatedSphere />
-        <SoftParticles count={particleCount} />
-        {!isPerformanceMode && <BloomEffect />}
-        <SceneCleanup />
-      </Canvas>
+    <div className="absolute inset-0 -z-10">
+      {/* Always visible gradient base */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-accent/10" />
+      
+      {/* 3D Canvas */}
+      <div className={`absolute inset-0 transition-opacity duration-1000 ${isReady ? 'opacity-100' : 'opacity-0'}`}>
+        <Canvas 
+          key={contextKey}
+          camera={{ position: [0, 0, 10], fov: 60 }}
+          frameloop={isPerformanceMode || isMobile ? 'demand' : 'always'}
+          dpr={dpr}
+          onCreated={({ gl }) => {
+            gl.domElement.addEventListener('webglcontextlost', handleContextLost);
+            gl.domElement.addEventListener('webglcontextrestored', handleContextRestored);
+            requestAnimationFrame(() => setIsReady(true));
+          }}
+          gl={{ 
+            preserveDrawingBuffer: false,
+            powerPreference: isPerformanceMode ? 'low-power' : 'default',
+            antialias: !isPerformanceMode && !isMobile,
+            alpha: true,
+            stencil: false,
+            depth: true,
+            failIfMajorPerformanceCaveat: false,
+          }}
+        >
+          {/* Lighting */}
+          <ambientLight intensity={0.3} />
+          <pointLight position={[5, 5, 5]} intensity={1} color="#06b6d4" />
+          <pointLight position={[-5, 3, -5]} intensity={0.8} color="#22d3ee" />
+          <pointLight position={[4, 0, 0]} intensity={3} color="#38bdf8" distance={10} />
+          <pointLight position={[4, 2, 2]} intensity={1.5} color="#0ea5e9" distance={8} />
+          <MouseReactiveLight />
+          
+          {/* Main Glass Bubble */}
+          {shouldSimplify ? <SimpleGlassBubble /> : <GlassBubble />}
+          
+          {/* 3D Text */}
+          {!isPerformanceMode && !shouldSimplify && <Text3DEffect />}
+          
+          {/* Particles */}
+          <SoftParticles count={particleCount} />
+          {!isPerformanceMode && <InternalParticles count={shouldSimplify ? 40 : 80} spherePosition={[4, 0, 0]} sphereRadius={4.5} />}
+          
+          {/* Environment & Effects */}
+          {!isPerformanceMode && <Environment preset="night" />}
+          {!isPerformanceMode && <BloomEffect />}
+          
+          <SceneCleanup />
+        </Canvas>
+      </div>
     </div>
   );
 }
