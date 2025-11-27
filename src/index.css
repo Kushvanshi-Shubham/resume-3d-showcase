@@ -212,34 +212,6 @@ All colors MUST be HSL.
     @apply transition-transform duration-200 hover:scale-105;
   }
 
-  /* 3D Text Effect */
-  .text-3d {
-    text-shadow: 
-      1px 1px 0 hsl(var(--primary)),
-      2px 2px 0 hsl(var(--primary)),
-      3px 3px 0 hsl(var(--primary)),
-      4px 4px 0 hsl(var(--primary-dark)),
-      5px 5px 0 hsl(var(--primary-dark)),
-      6px 6px 5px rgba(0, 0, 0, 0.3),
-      0 0 20px hsl(var(--primary-glow) / 0.5);
-    transform: translateZ(0);
-    @apply transition-all duration-300;
-  }
-
-  .text-3d:hover {
-    text-shadow: 
-      1px 1px 0 hsl(var(--primary)),
-      2px 2px 0 hsl(var(--primary)),
-      3px 3px 0 hsl(var(--primary)),
-      4px 4px 0 hsl(var(--primary-dark)),
-      5px 5px 0 hsl(var(--primary-dark)),
-      6px 6px 0 hsl(var(--primary-dark)),
-      7px 7px 0 hsl(var(--primary-dark)),
-      8px 8px 8px rgba(0, 0, 0, 0.4),
-      0 0 30px hsl(var(--primary-glow) / 0.7);
-    transform: translateZ(10px) scale(1.05);
-  }
-
   /* Fluid Typography */
   .text-fluid-display {
     @apply text-fluid-5xl font-heading font-bold tracking-tight;
