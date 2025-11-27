@@ -24,7 +24,7 @@ export default function Navigation() {
     >
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          <NavLink to="/" className="text-2xl font-bold gradient-text">
+          <NavLink to="/" className="text-2xl font-bold gradient-text text-3d">
             SK
           </NavLink>
           
