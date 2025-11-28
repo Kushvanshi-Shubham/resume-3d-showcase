@@ -37,27 +37,28 @@ function GlassBubble() {
 
   return (
     <Float speed={1.5} rotationIntensity={0.3} floatIntensity={0.8}>
-      <Sphere ref={meshRef} args={[1, 64, 64]} scale={4.5} position={[4, 0, 0]}>
+      <Sphere ref={meshRef} args={[1, 64, 64]} scale={3.5} position={[3, 0, -1]}>
         <meshPhysicalMaterial
-          color="#0ea5e9"
-          transmission={0.92}
-          thickness={2}
-          roughness={0.05}
-          metalness={0.2}
+          color="#38bdf8"
+          transmission={0.85}
+          thickness={1.5}
+          roughness={0.1}
+          metalness={0.3}
           clearcoat={1}
-          clearcoatRoughness={0.05}
-          envMapIntensity={2}
-          ior={1.45}
+          clearcoatRoughness={0.1}
+          ior={1.5}
           transparent
-          opacity={0.95}
+          opacity={1}
+          emissive="#0ea5e9"
+          emissiveIntensity={0.3}
         />
       </Sphere>
       {/* Add visible glow ring */}
-      <Sphere args={[1, 32, 32]} scale={4.8} position={[4, 0, 0]}>
+      <Sphere args={[1, 32, 32]} scale={3.7} position={[3, 0, -1]}>
         <meshBasicMaterial
-          color="#0ea5e9"
+          color="#22d3ee"
           transparent
-          opacity={0.15}
+          opacity={0.2}
         />
       </Sphere>
     </Float>
@@ -75,15 +76,15 @@ function SimpleGlassBubble() {
   });
 
   return (
-    <Sphere ref={meshRef} args={[1, 32, 32]} scale={4} position={[4, 0, 0]}>
+    <Sphere ref={meshRef} args={[1, 32, 32]} scale={3.5} position={[3, 0, -1]}>
       <meshStandardMaterial
-        color="#0ea5e9"
+        color="#38bdf8"
         metalness={0.6}
         roughness={0.2}
         transparent
-        opacity={0.8}
+        opacity={0.9}
         emissive="#0ea5e9"
-        emissiveIntensity={0.2}
+        emissiveIntensity={0.4}
       />
     </Sphere>
   );
@@ -246,11 +247,11 @@ export default function Hero3D() {
           }}
         >
           {/* Lighting */}
-          <ambientLight intensity={0.3} />
-          <pointLight position={[5, 5, 5]} intensity={1} color="#06b6d4" />
-          <pointLight position={[-5, 3, -5]} intensity={0.8} color="#22d3ee" />
-          <pointLight position={[4, 0, 0]} intensity={3} color="#38bdf8" distance={10} />
-          <pointLight position={[4, 2, 2]} intensity={1.5} color="#0ea5e9" distance={8} />
+          <ambientLight intensity={0.4} />
+          <pointLight position={[5, 5, 5]} intensity={1.5} color="#06b6d4" />
+          <pointLight position={[-5, 3, -5]} intensity={1} color="#22d3ee" />
+          <pointLight position={[3, 0, -1]} intensity={4} color="#38bdf8" distance={12} />
+          <pointLight position={[3, 2, 2]} intensity={2} color="#0ea5e9" distance={10} />
           <MouseReactiveLight />
           
           {/* Main Glass Bubble */}
@@ -261,10 +262,9 @@ export default function Hero3D() {
           
           {/* Particles */}
           <SoftParticles count={particleCount} />
-          {!isPerformanceMode && <InternalParticles count={shouldSimplify ? 40 : 80} spherePosition={[4, 0, 0]} sphereRadius={4.5} />}
+          {!isPerformanceMode && <InternalParticles count={shouldSimplify ? 40 : 80} spherePosition={[3, 0, -1]} sphereRadius={3.5} />}
           
-          {/* Environment & Effects */}
-          {!isPerformanceMode && <Environment preset="night" />}
+          {/* Effects */}
           {!isPerformanceMode && <BloomEffect />}
           
           <SceneCleanup />
