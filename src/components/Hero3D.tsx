@@ -11,56 +11,80 @@ import { usePerformanceMonitor } from '@/hooks/usePerformanceMonitor';
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 const isLowEndDevice = navigator.hardwareConcurrency <= 4;
 
-// Glass Bubble with realistic materials
+// Glowing Orb - more visible without environment map
 function GlassBubble() {
-  const meshRef = useRef<THREE.Mesh>(null);
+  const groupRef = useRef<THREE.Group>(null);
+  const innerRef = useRef<THREE.Mesh>(null);
   
   useFrame((state) => {
-    if (meshRef.current) {
+    if (groupRef.current) {
       const time = state.clock.getElapsedTime();
-      meshRef.current.rotation.x = Math.sin(time * 0.15) * 0.3;
-      meshRef.current.rotation.y = time * 0.2;
+      groupRef.current.rotation.x = Math.sin(time * 0.15) * 0.2;
+      groupRef.current.rotation.y = time * 0.15;
+    }
+    if (innerRef.current) {
+      const time = state.clock.getElapsedTime();
+      innerRef.current.scale.setScalar(1 + Math.sin(time * 2) * 0.02);
     }
   });
 
-  useEffect(() => {
-    return () => {
-      if (meshRef.current) {
-        if (meshRef.current.geometry) meshRef.current.geometry.dispose();
-        if (meshRef.current.material) {
-          const material = meshRef.current.material as THREE.Material;
-          material.dispose();
-        }
-      }
-    };
-  }, []);
-
   return (
     <Float speed={1.5} rotationIntensity={0.3} floatIntensity={0.8}>
-      <Sphere ref={meshRef} args={[1, 64, 64]} scale={3.5} position={[3, 0, -1]}>
-        <meshPhysicalMaterial
-          color="#38bdf8"
-          transmission={0.85}
-          thickness={1.5}
-          roughness={0.1}
-          metalness={0.3}
-          clearcoat={1}
-          clearcoatRoughness={0.1}
-          ior={1.5}
-          transparent
-          opacity={1}
-          emissive="#0ea5e9"
-          emissiveIntensity={0.3}
-        />
-      </Sphere>
-      {/* Add visible glow ring */}
-      <Sphere args={[1, 32, 32]} scale={3.7} position={[3, 0, -1]}>
-        <meshBasicMaterial
-          color="#22d3ee"
-          transparent
-          opacity={0.2}
-        />
-      </Sphere>
+      <group ref={groupRef} position={[3.5, 0, -1]}>
+        {/* Outer glow layer */}
+        <Sphere args={[1, 32, 32]} scale={4.2}>
+          <meshBasicMaterial
+            color="#0ea5e9"
+            transparent
+            opacity={0.08}
+            side={THREE.BackSide}
+          />
+        </Sphere>
+        
+        {/* Mid glow layer */}
+        <Sphere args={[1, 32, 32]} scale={3.8}>
+          <meshBasicMaterial
+            color="#22d3ee"
+            transparent
+            opacity={0.12}
+            side={THREE.BackSide}
+          />
+        </Sphere>
+        
+        {/* Main sphere - visible solid */}
+        <Sphere ref={innerRef} args={[1, 48, 48]} scale={3.5}>
+          <meshStandardMaterial
+            color="#0ea5e9"
+            metalness={0.3}
+            roughness={0.2}
+            transparent
+            opacity={0.6}
+            emissive="#38bdf8"
+            emissiveIntensity={0.5}
+          />
+        </Sphere>
+        
+        {/* Inner bright core */}
+        <Sphere args={[1, 32, 32]} scale={2.8}>
+          <meshBasicMaterial
+            color="#67e8f9"
+            transparent
+            opacity={0.25}
+          />
+        </Sphere>
+        
+        {/* Specular highlights ring */}
+        <mesh rotation={[Math.PI / 2, 0, 0]}>
+          <torusGeometry args={[3.5, 0.08, 16, 64]} />
+          <meshBasicMaterial color="#a5f3fc" transparent opacity={0.4} />
+        </mesh>
+        
+        {/* Second ring at angle */}
+        <mesh rotation={[Math.PI / 3, Math.PI / 4, 0]}>
+          <torusGeometry args={[3.3, 0.05, 16, 64]} />
+          <meshBasicMaterial color="#22d3ee" transparent opacity={0.3} />
+        </mesh>
+      </group>
     </Float>
   );
 }
@@ -76,17 +100,24 @@ function SimpleGlassBubble() {
   });
 
   return (
-    <Sphere ref={meshRef} args={[1, 32, 32]} scale={3.5} position={[3, 0, -1]}>
-      <meshStandardMaterial
-        color="#38bdf8"
-        metalness={0.6}
-        roughness={0.2}
-        transparent
-        opacity={0.9}
-        emissive="#0ea5e9"
-        emissiveIntensity={0.4}
-      />
-    </Sphere>
+    <group position={[3.5, 0, -1]}>
+      {/* Outer glow */}
+      <Sphere args={[1, 24, 24]} scale={3.8}>
+        <meshBasicMaterial color="#0ea5e9" transparent opacity={0.1} side={THREE.BackSide} />
+      </Sphere>
+      {/* Main sphere */}
+      <Sphere ref={meshRef} args={[1, 24, 24]} scale={3.5}>
+        <meshStandardMaterial
+          color="#38bdf8"
+          metalness={0.5}
+          roughness={0.3}
+          transparent
+          opacity={0.7}
+          emissive="#0ea5e9"
+          emissiveIntensity={0.5}
+        />
+      </Sphere>
+    </group>
   );
 }
 
@@ -226,7 +257,7 @@ export default function Hero3D() {
       
       {/* 3D Canvas */}
       <div className={`absolute inset-0 transition-opacity duration-1000 ${isReady ? 'opacity-100' : 'opacity-0'}`}>
-        <Canvas 
+        <Canvas
           key={contextKey}
           camera={{ position: [0, 0, 10], fov: 60 }}
           frameloop={isPerformanceMode || isMobile ? 'demand' : 'always'}
@@ -247,11 +278,11 @@ export default function Hero3D() {
           }}
         >
           {/* Lighting */}
-          <ambientLight intensity={0.4} />
-          <pointLight position={[5, 5, 5]} intensity={1.5} color="#06b6d4" />
-          <pointLight position={[-5, 3, -5]} intensity={1} color="#22d3ee" />
-          <pointLight position={[3, 0, -1]} intensity={4} color="#38bdf8" distance={12} />
-          <pointLight position={[3, 2, 2]} intensity={2} color="#0ea5e9" distance={10} />
+          <ambientLight intensity={0.5} />
+          <pointLight position={[5, 5, 5]} intensity={2} color="#06b6d4" />
+          <pointLight position={[-5, 3, -5]} intensity={1.5} color="#22d3ee" />
+          <pointLight position={[3.5, 0, -1]} intensity={5} color="#38bdf8" distance={15} />
+          <pointLight position={[3.5, 2, 2]} intensity={2.5} color="#0ea5e9" distance={12} />
           <MouseReactiveLight />
           
           {/* Main Glass Bubble */}
@@ -262,7 +293,7 @@ export default function Hero3D() {
           
           {/* Particles */}
           <SoftParticles count={particleCount} />
-          {!isPerformanceMode && <InternalParticles count={shouldSimplify ? 40 : 80} spherePosition={[3, 0, -1]} sphereRadius={3.5} />}
+          {!isPerformanceMode && <InternalParticles count={shouldSimplify ? 40 : 80} spherePosition={[3.5, 0, -1]} sphereRadius={3.5} />}
           
           {/* Effects */}
           {!isPerformanceMode && <BloomEffect />}

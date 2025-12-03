@@ -11,6 +11,64 @@ import ProjectShowcase from "@/components/ProjectShowcase";
 export default function Home() {
   return (
     <div className="min-h-screen relative overflow-hidden">
+      {/* CSS Glass Bubble - positioned in upper right */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1.2, delay: 0.3 }}
+        className="absolute right-[5%] top-[15%] pointer-events-none hidden lg:block"
+      >
+        {/* Outer glow */}
+        <div 
+          className="absolute rounded-full"
+          style={{
+            width: '420px',
+            height: '420px',
+            background: 'radial-gradient(circle at 35% 35%, rgba(56, 189, 248, 0.6) 0%, rgba(14, 165, 233, 0.35) 35%, rgba(6, 182, 212, 0.15) 60%, transparent 85%)',
+            boxShadow: '0 0 100px 50px rgba(14, 165, 233, 0.25), inset 0 0 80px rgba(103, 232, 249, 0.3)',
+            border: '1px solid rgba(103, 232, 249, 0.25)',
+          }}
+        />
+        {/* Inner bright core */}
+        <div 
+          className="absolute rounded-full"
+          style={{
+            width: '260px',
+            height: '260px',
+            left: '80px',
+            top: '80px',
+            background: 'radial-gradient(circle, rgba(103, 232, 249, 0.5) 0%, rgba(56, 189, 248, 0.25) 60%, transparent 100%)',
+            boxShadow: '0 0 50px 25px rgba(103, 232, 249, 0.2)',
+          }}
+        />
+        {/* Highlight ring */}
+        <div 
+          className="absolute rounded-full"
+          style={{
+            width: '360px',
+            height: '360px',
+            left: '30px',
+            top: '30px',
+            background: 'transparent',
+            border: '2px solid rgba(165, 243, 252, 0.35)',
+            boxShadow: '0 0 25px rgba(165, 243, 252, 0.2)',
+          }}
+        />
+        {/* Specular highlight */}
+        <div 
+          className="absolute rounded-full"
+          style={{
+            width: '100px',
+            height: '60px',
+            left: '100px',
+            top: '80px',
+            background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, transparent 100%)',
+            filter: 'blur(10px)',
+            borderRadius: '50%',
+          }}
+        />
+      </motion.div>
+
       {/* Auto-scrolling project showcase on the right */}
       <ProjectShowcase />
       
