@@ -6,11 +6,13 @@ import MagneticButton from "@/components/interactions/MagneticButton";
 import ScrollReveal from "@/components/interactions/ScrollReveal";
 import GlassCard from "@/components/ui/glass-card";
 import { staggerChildren } from "@/lib/motion-config";
+import ProjectShowcase from "@/components/ProjectShowcase";
 
 export default function Home() {
   return (
     <div className="min-h-screen relative overflow-hidden">
-      {/* Hero3D is now global in App.tsx */}
+      {/* Auto-scrolling project showcase on the right */}
+      <ProjectShowcase />
       
       <div className="relative z-10 container mx-auto px-6 pt-32 pb-20">
         <div className="max-w-3xl text-left">
