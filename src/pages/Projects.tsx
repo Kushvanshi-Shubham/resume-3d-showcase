@@ -1,53 +1,12 @@
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ExternalLink, Github } from "lucide-react";
+import { ArrowRight, Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import GlassCard from "@/components/ui/glass-card";
 import DepthLayer from "@/components/ui/depth-layer";
 import ScrollReveal from "@/components/interactions/ScrollReveal";
 import LiquidButton from "@/components/interactions/LiquidButton";
-
-const projects = [
-  {
-    title: "BRAINLY Web App",
-    description: "A secure content-sharing platform with RESTful API architecture. Features JWT authentication, MongoDB data persistence, and comprehensive user management system.",
-    techStack: ["Node.js", "Express.js", "MongoDB", "JWT", "REST API"],
-    highlights: [
-      "Secure authentication system",
-      "RESTful API design",
-      "Scalable data persistence",
-    ],
-  },
-  {
-    title: "RBAC Web App",
-    description: "Internal administrative tool for role-based access control. Built with modern Next.js architecture and Supabase backend, featuring dynamic permission management.",
-    techStack: ["Next.js", "TypeScript", "MongoDB", "Mongoose", "Shadcn UI", "Tailwind CSS", "Framer Motion"],
-    highlights: [
-      "Role-based access control",
-      "Modern UI with animations",
-      "Supabase integration",
-    ],
-  },
-  {
-    title: "Web Chat App",
-    description: "Real-time messaging application with WebSocket implementation. Features live message delivery, user presence indicators, and modern React/TypeScript frontend.",
-    techStack: ["Node.js", "Express.js", "WebSocket", "React", "TypeScript"],
-    highlights: [
-      "Real-time communication",
-      "WebSocket implementation",
-      "Modern responsive UI",
-    ],
-  },
-  {
-    title: "MINIPAYTM",
-    description: "Payment application clone demonstrating financial transaction flows. Implements secure transaction handling, user wallet management, and comprehensive backend validation.",
-    techStack: ["Node.js", "Express.js", "MongoDB", "REST API"],
-    highlights: [
-      "Secure transaction handling",
-      "Wallet management system",
-      "Backend validation",
-    ],
-  },
-];
+import { projects } from "@/data/projects";
 
 export default function Projects() {
   return (
@@ -111,10 +70,12 @@ export default function Projects() {
                         <Github className="h-4 w-4 mr-2" />
                         Code
                       </Button>
-                      <LiquidButton className="text-sm">
-                        <ExternalLink className="h-4 w-4 mr-2" />
-                        Demo
-                      </LiquidButton>
+                      <Link to={`/projects/${project.id}`}>
+                        <LiquidButton className="text-sm">
+                          <ArrowRight className="h-4 w-4 mr-2" />
+                          View Details
+                        </LiquidButton>
+                      </Link>
                     </div>
                   </GlassCard>
                 </DepthLayer>

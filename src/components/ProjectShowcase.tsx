@@ -2,32 +2,13 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ExternalLink } from "lucide-react";
+import { projects } from "@/data/projects";
 
-const projects = [
-  {
-    title: "BRAINLY Web App",
-    description: "Secure content-sharing platform with RESTful API",
-    techStack: ["Node.js", "Express.js", "MongoDB", "JWT"],
-    gradient: "from-violet-500 to-purple-600",
-  },
-  {
-    title: "RBAC Web App",
-    description: "Role-based access control admin tool",
-    techStack: ["Next.js", "TypeScript", "Supabase"],
-    gradient: "from-cyan-500 to-blue-600",
-  },
-  {
-    title: "Web Chat App",
-    description: "Real-time messaging with WebSocket",
-    techStack: ["React", "WebSocket", "TypeScript"],
-    gradient: "from-emerald-500 to-teal-600",
-  },
-  {
-    title: "MINIPAYTM",
-    description: "Payment app with secure transactions",
-    techStack: ["Node.js", "MongoDB", "REST API"],
-    gradient: "from-orange-500 to-red-600",
-  },
+const gradients = [
+  "from-violet-500 to-purple-600",
+  "from-cyan-500 to-blue-600",
+  "from-emerald-500 to-teal-600",
+  "from-orange-500 to-red-600",
 ];
 
 // Duplicate for seamless loop
@@ -61,10 +42,12 @@ export default function ProjectShowcase() {
         }}
         style={{ animationPlayState: isPaused ? 'paused' : 'running' }}
       >
-        {duplicatedProjects.map((project, index) => (
+        {duplicatedProjects.map((project, index) => {
+          const gradient = gradients[index % gradients.length];
+          return (
           <Link
-            to="/projects"
-            key={`${project.title}-${index}`}
+            to={`/projects/${project.id}`}
+            key={`${project.id}-${index}`}
             className="flex-shrink-0 w-[280px] h-[360px] group"
           >
             <motion.div
@@ -77,13 +60,13 @@ export default function ProjectShowcase() {
               }}
               transition={{ duration: 0.3, ease: "easeOut" }}
             >
-              <div className={`h-full bg-gradient-to-br ${project.gradient} p-[1px] rounded-2xl transition-shadow duration-300 group-hover:shadow-xl group-hover:shadow-primary/20`}>
+              <div className={`h-full bg-gradient-to-br ${gradient} p-[1px] rounded-2xl transition-shadow duration-300 group-hover:shadow-xl group-hover:shadow-primary/20`}>
                 <div className="h-full bg-card/90 backdrop-blur-xl rounded-2xl p-6 flex flex-col relative overflow-hidden">
                   {/* Hover overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   
                   {/* Project header with gradient accent */}
-                  <div className={`h-2 w-16 rounded-full bg-gradient-to-r ${project.gradient} mb-6 transition-all duration-300 group-hover:w-24`} />
+                  <div className={`h-2 w-16 rounded-full bg-gradient-to-r ${gradient} mb-6 transition-all duration-300 group-hover:w-24`} />
                   
                   <h3 className="text-xl font-bold text-foreground mb-3 relative z-10 group-hover:text-primary transition-colors duration-300">
                     {project.title}
@@ -114,7 +97,8 @@ export default function ProjectShowcase() {
               </div>
             </motion.div>
           </Link>
-        ))}
+          );
+        })}
       </motion.div>
     </div>
   );
