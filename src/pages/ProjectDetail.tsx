@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowLeft, Calendar, CheckCircle2, Lightbulb, Target, Wrench } from "lucide-react";
+import { ArrowLeft, Calendar, CheckCircle2, ExternalLink, Github, Lightbulb, Target, Wrench } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import GlassCard from "@/components/ui/glass-card";
 import DepthLayer from "@/components/ui/depth-layer";
@@ -47,9 +47,31 @@ export default function ProjectDetail() {
             <h1 className="text-4xl md:text-6xl font-bold mb-6 gradient-text">
               {project.title}
             </h1>
-            <p className="text-xl text-muted-foreground leading-relaxed">
+            <p className="text-xl text-muted-foreground leading-relaxed mb-6">
               {project.longDescription}
             </p>
+            
+            {/* Project Links */}
+            {(project.liveUrl || project.githubUrl) && (
+              <div className="flex flex-wrap gap-4">
+                {project.liveUrl && (
+                  <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                    <Button size="lg" className="gap-2 bg-primary hover:bg-primary/90">
+                      <ExternalLink className="h-4 w-4" />
+                      Live Demo
+                    </Button>
+                  </a>
+                )}
+                {project.githubUrl && (
+                  <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                    <Button variant="outline" size="lg" className="gap-2">
+                      <Github className="h-4 w-4" />
+                      View Code
+                    </Button>
+                  </a>
+                )}
+              </div>
+            )}
           </div>
 
           {/* Tech Stack */}
