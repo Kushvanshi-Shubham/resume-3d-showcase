@@ -15,6 +15,7 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Experience from "./pages/Experience";
 import Projects from "./pages/Projects";
+import ProjectDetail from "./pages/ProjectDetail";
 import Skills from "./pages/Skills";
 import Resume from "./pages/Resume";
 import Contact from "./pages/Contact";
@@ -35,6 +36,7 @@ function AnimatedRoutes() {
         <Route path="/about" element={<PageTransition><About /></PageTransition>} />
         <Route path="/experience" element={<PageTransition><Experience /></PageTransition>} />
         <Route path="/projects" element={<PageTransition><Projects /></PageTransition>} />
+        <Route path="/projects/:id" element={<PageTransition><ProjectDetail /></PageTransition>} />
         <Route path="/skills" element={<PageTransition><Skills /></PageTransition>} />
         <Route path="/resume" element={<PageTransition><Resume /></PageTransition>} />
         <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
