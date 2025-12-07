@@ -10,6 +10,8 @@ export interface Project {
   learnings: string[];
   status: "completed" | "in-progress" | "planned";
   year: string;
+  liveUrl?: string;
+  githubUrl?: string;
 }
 
 export const projects: Project[] = [
@@ -44,6 +46,8 @@ export const projects: Project[] = [
     ],
     status: "completed",
     year: "2024",
+    liveUrl: "https://brainly-fe-coral.vercel.app/",
+    githubUrl: "https://github.com/Kushvanshi-Shubham/brainly-fe",
   },
   {
     id: "rbac",
@@ -108,6 +112,8 @@ export const projects: Project[] = [
     ],
     status: "completed",
     year: "2024",
+    liveUrl: "https://web-app-fe-self.vercel.app/",
+    githubUrl: "https://github.com/Kushvanshi-Shubham/webApp-fe",
   },
   {
     id: "minipaytm",
@@ -140,6 +146,8 @@ export const projects: Project[] = [
     ],
     status: "completed",
     year: "2024",
+    liveUrl: "https://mini-paytm-fe.vercel.app/",
+    githubUrl: "https://github.com/Kushvanshi-Shubham/MiniPaytm-FE",
   },
 ];
 
