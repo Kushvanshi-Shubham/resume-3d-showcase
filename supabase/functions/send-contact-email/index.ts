@@ -26,29 +26,29 @@ const handler = async (req: Request): Promise<Response> => {
     // Validate inputs
     if (!name || !email || !message) {
       console.error("Missing required fields:", { name: !!name, email: !!email, message: !!message });
-      return new Response(
-        JSON.stringify({ error: "Name, email, and message are required" }),
-        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
-      );
+      return new Response(JSON.stringify({ error: "Name, email, and message are required" }), {
+        status: 400,
+        headers: { "Content-Type": "application/json", ...corsHeaders },
+      });
     }
 
     // Basic email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       console.error("Invalid email format:", email);
-      return new Response(
-        JSON.stringify({ error: "Invalid email format" }),
-        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
-      );
+      return new Response(JSON.stringify({ error: "Invalid email format" }), {
+        status: 400,
+        headers: { "Content-Type": "application/json", ...corsHeaders },
+      });
     }
 
     // Length validation
     if (name.length > 100 || email.length > 255 || message.length > 5000) {
       console.error("Input too long");
-      return new Response(
-        JSON.stringify({ error: "Input exceeds maximum length" }),
-        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
-      );
+      return new Response(JSON.stringify({ error: "Input exceeds maximum length" }), {
+        status: 400,
+        headers: { "Content-Type": "application/json", ...corsHeaders },
+      });
     }
 
     console.log("Sending contact email from:", name, email);
@@ -173,7 +173,7 @@ const handler = async (req: Request): Promise<Response> => {
                       
                       <!-- Social links -->
                       <div style="margin-top: 20px;">
-                        <a href="https://github.com/Kushvanshi-Shubh" style="display: inline-block; margin: 0 8px; width: 36px; height: 36px; background: rgba(30, 41, 59, 0.8); border-radius: 10px; line-height: 36px; text-decoration: none; border: 1px solid rgba(6, 182, 212, 0.2);">
+                        <a href="https://github.com/Kushvanshi-Shubham" style="display: inline-block; margin: 0 8px; width: 36px; height: 36px; background: rgba(30, 41, 59, 0.8); border-radius: 10px; line-height: 36px; text-decoration: none; border: 1px solid rgba(6, 182, 212, 0.2);">
                           <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/github.svg" alt="GitHub" style="width: 18px; height: 18px; vertical-align: middle; filter: invert(1) brightness(0.7);">
                         </a>
                         <a href="https://linkedin.com/in/shubham-kushvanshi" style="display: inline-block; margin: 0 8px; width: 36px; height: 36px; background: rgba(30, 41, 59, 0.8); border-radius: 10px; line-height: 36px; text-decoration: none; border: 1px solid rgba(6, 182, 212, 0.2);">
@@ -198,16 +198,16 @@ const handler = async (req: Request): Promise<Response> => {
 
     console.log("Confirmation email sent:", confirmationEmailResponse);
 
-    return new Response(
-      JSON.stringify({ success: true, message: "Email sent successfully" }),
-      { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
-    );
+    return new Response(JSON.stringify({ success: true, message: "Email sent successfully" }), {
+      status: 200,
+      headers: { "Content-Type": "application/json", ...corsHeaders },
+    });
   } catch (error: any) {
     console.error("Error in send-contact-email function:", error);
-    return new Response(
-      JSON.stringify({ error: error.message || "Failed to send email" }),
-      { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
-    );
+    return new Response(JSON.stringify({ error: error.message || "Failed to send email" }), {
+      status: 500,
+      headers: { "Content-Type": "application/json", ...corsHeaders },
+    });
   }
 };
 
