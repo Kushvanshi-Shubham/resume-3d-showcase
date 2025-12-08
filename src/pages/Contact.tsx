@@ -1,5 +1,5 @@
-import { motion } from "framer-motion";
-import { Mail, Linkedin, Github, Send, Loader2 } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Mail, Linkedin, Github, Send, Loader2, CheckCircle2, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -14,6 +14,7 @@ export default function Contact() {
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -47,7 +48,7 @@ export default function Contact() {
         return;
       }
 
-      toast.success("Message sent successfully! I'll get back to you soon.");
+      setIsSuccess(true);
       setFormData({ name: "", email: "", message: "" });
     } catch (error) {
       console.error("Error sending message:", error);
@@ -55,6 +56,10 @@ export default function Contact() {
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const handleSendAnother = () => {
+    setIsSuccess(false);
   };
 
   return (
@@ -121,76 +126,176 @@ export default function Contact() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="glass-panel p-8 md:p-12"
+            className="glass-panel p-8 md:p-12 relative overflow-hidden"
           >
-            <h2 className="text-3xl font-bold mb-8 text-foreground">
-              Send Me a Message
-            </h2>
+            <AnimatePresence mode="wait">
+              {isSuccess ? (
+                <motion.div
+                  key="success"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  transition={{ duration: 0.5, type: "spring", bounce: 0.4 }}
+                  className="text-center py-12"
+                >
+                  {/* Success animation background */}
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ duration: 0.6, delay: 0.1 }}
+                    className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/10 pointer-events-none"
+                  />
+                  
+                  {/* Animated check icon */}
+                  <motion.div
+                    initial={{ scale: 0, rotate: -180 }}
+                    animate={{ scale: 1, rotate: 0 }}
+                    transition={{ duration: 0.6, type: "spring", bounce: 0.5 }}
+                    className="relative inline-block mb-6"
+                  >
+                    <div className="w-24 h-24 rounded-full bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center border border-primary/30">
+                      <CheckCircle2 className="w-12 h-12 text-primary" />
+                    </div>
+                    {/* Sparkle decorations */}
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.4, delay: 0.4 }}
+                      className="absolute -top-2 -right-2"
+                    >
+                      <Sparkles className="w-6 h-6 text-primary/60" />
+                    </motion.div>
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.4, delay: 0.5 }}
+                      className="absolute -bottom-1 -left-3"
+                    >
+                      <Sparkles className="w-4 h-4 text-primary/40" />
+                    </motion.div>
+                  </motion.div>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium mb-2 text-foreground">
-                  Name
-                </label>
-                <Input
-                  id="name"
-                  type="text"
-                  required
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="glass-panel border-border"
-                  placeholder="Your name"
-                />
-              </div>
+                  <motion.h2
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: 0.3 }}
+                    className="text-3xl font-bold mb-4 gradient-text"
+                  >
+                    Message Sent!
+                  </motion.h2>
+                  
+                  <motion.p
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: 0.4 }}
+                    className="text-muted-foreground mb-2 text-lg"
+                  >
+                    Thank you for reaching out!
+                  </motion.p>
+                  
+                  <motion.p
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: 0.5 }}
+                    className="text-muted-foreground/80 mb-8"
+                  >
+                    I'll get back to you as soon as possible. Check your inbox for a confirmation email.
+                  </motion.p>
 
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium mb-2 text-foreground">
-                  Email
-                </label>
-                <Input
-                  id="email"
-                  type="email"
-                  required
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="glass-panel border-border"
-                  placeholder="your.email@example.com"
-                />
-              </div>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: 0.6 }}
+                  >
+                    <Button
+                      onClick={handleSendAnother}
+                      variant="outline"
+                      size="lg"
+                      className="glass-panel hover-glow"
+                    >
+                      <Send className="mr-2 h-4 w-4" />
+                      Send Another Message
+                    </Button>
+                  </motion.div>
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="form"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                >
+                  <h2 className="text-3xl font-bold mb-8 text-foreground">
+                    Send Me a Message
+                  </h2>
 
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium mb-2 text-foreground">
-                  Message
-                </label>
-                <Textarea
-                  id="message"
-                  required
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  className="glass-panel border-border min-h-[150px]"
-                  placeholder="Your message..."
-                />
-              </div>
+                  <form onSubmit={handleSubmit} className="space-y-6">
+                    <div>
+                      <label htmlFor="name" className="block text-sm font-medium mb-2 text-foreground">
+                        Name
+                      </label>
+                      <Input
+                        id="name"
+                        type="text"
+                        required
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        className="glass-panel border-border"
+                        placeholder="Your name"
+                      />
+                    </div>
 
-              <Button 
-                type="submit" 
-                size="lg" 
-                className="w-full glass-panel hover-glow group"
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? (
-                  <>
-                    <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                    Sending...
-                  </>
-                ) : (
-                  <>
-                    <Send className="mr-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                    Send Message
-                  </>
-                )}
-              </Button>
-            </form>
+                    <div>
+                      <label htmlFor="email" className="block text-sm font-medium mb-2 text-foreground">
+                        Email
+                      </label>
+                      <Input
+                        id="email"
+                        type="email"
+                        required
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        className="glass-panel border-border"
+                        placeholder="your.email@example.com"
+                      />
+                    </div>
+
+                    <div>
+                      <label htmlFor="message" className="block text-sm font-medium mb-2 text-foreground">
+                        Message
+                      </label>
+                      <Textarea
+                        id="message"
+                        required
+                        value={formData.message}
+                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                        className="glass-panel border-border min-h-[150px]"
+                        placeholder="Your message..."
+                      />
+                    </div>
+
+                    <Button 
+                      type="submit" 
+                      size="lg" 
+                      className="w-full glass-panel hover-glow group"
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? (
+                        <>
+                          <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                          Sending...
+                        </>
+                      ) : (
+                        <>
+                          <Send className="mr-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                          Send Message
+                        </>
+                      )}
+                    </Button>
+                  </form>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </motion.div>
         </motion.div>
       </div>
