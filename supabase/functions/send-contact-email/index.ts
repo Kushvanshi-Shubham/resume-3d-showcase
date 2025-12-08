@@ -53,7 +53,8 @@ const handler = async (req: Request): Promise<Response> => {
 
     console.log("Sending contact email from:", name, email);
 
-    const emailResponse = await resend.emails.send({
+    // Send notification to portfolio owner
+    const ownerEmailResponse = await resend.emails.send({
       from: "Portfolio Contact <onboarding@resend.dev>",
       to: ["shubhamkushvanshi@gmail.com"],
       reply_to: email,
@@ -81,7 +82,47 @@ const handler = async (req: Request): Promise<Response> => {
       `,
     });
 
-    console.log("Email sent successfully:", emailResponse);
+    console.log("Owner email sent:", ownerEmailResponse);
+
+    // Send confirmation email to sender
+    const confirmationEmailResponse = await resend.emails.send({
+      from: "Shubham Kushvanshi <onboarding@resend.dev>",
+      to: [email],
+      subject: "Thank you for reaching out!",
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+          <h1 style="color: #333; border-bottom: 2px solid #0ea5e9; padding-bottom: 10px;">
+            Thanks for getting in touch, ${name}!
+          </h1>
+          
+          <p style="color: #475569; line-height: 1.6; font-size: 16px;">
+            I've received your message and will get back to you as soon as possible.
+          </p>
+          
+          <div style="background: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            <h3 style="color: #333; margin-top: 0;">Your message:</h3>
+            <p style="color: #64748b; line-height: 1.6; white-space: pre-wrap; font-style: italic;">"${message}"</p>
+          </div>
+          
+          <p style="color: #475569; line-height: 1.6;">
+            In the meantime, feel free to check out my latest projects on my portfolio.
+          </p>
+          
+          <p style="color: #475569; line-height: 1.6;">
+            Best regards,<br>
+            <strong>Shubham Kushvanshi</strong>
+          </p>
+          
+          <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 20px 0;">
+          
+          <p style="color: #94a3b8; font-size: 12px;">
+            This is an automated confirmation email. Please do not reply directly to this message.
+          </p>
+        </div>
+      `,
+    });
+
+    console.log("Confirmation email sent:", confirmationEmailResponse);
 
     return new Response(
       JSON.stringify({ success: true, message: "Email sent successfully" }),
