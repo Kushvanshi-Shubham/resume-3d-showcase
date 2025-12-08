@@ -19,66 +19,64 @@ export default function Home() {
         className="absolute right-[5%] top-[15%] pointer-events-none hidden lg:block"
       >
         {/* Outer glow */}
-        <div 
+        <div
           className="absolute rounded-full"
           style={{
-            width: '420px',
-            height: '420px',
-            background: 'radial-gradient(circle at 35% 35%, rgba(56, 189, 248, 0.6) 0%, rgba(14, 165, 233, 0.35) 35%, rgba(6, 182, 212, 0.15) 60%, transparent 85%)',
-            boxShadow: '0 0 100px 50px rgba(14, 165, 233, 0.25), inset 0 0 80px rgba(103, 232, 249, 0.3)',
-            border: '1px solid rgba(103, 232, 249, 0.25)',
+            width: "420px",
+            height: "420px",
+            background:
+              "radial-gradient(circle at 35% 35%, rgba(56, 189, 248, 0.6) 0%, rgba(14, 165, 233, 0.35) 35%, rgba(6, 182, 212, 0.15) 60%, transparent 85%)",
+            boxShadow: "0 0 100px 50px rgba(14, 165, 233, 0.25), inset 0 0 80px rgba(103, 232, 249, 0.3)",
+            border: "1px solid rgba(103, 232, 249, 0.25)",
           }}
         />
         {/* Inner bright core */}
-        <div 
+        <div
           className="absolute rounded-full"
           style={{
-            width: '260px',
-            height: '260px',
-            left: '80px',
-            top: '80px',
-            background: 'radial-gradient(circle, rgba(103, 232, 249, 0.5) 0%, rgba(56, 189, 248, 0.25) 60%, transparent 100%)',
-            boxShadow: '0 0 50px 25px rgba(103, 232, 249, 0.2)',
+            width: "260px",
+            height: "260px",
+            left: "80px",
+            top: "80px",
+            background:
+              "radial-gradient(circle, rgba(103, 232, 249, 0.5) 0%, rgba(56, 189, 248, 0.25) 60%, transparent 100%)",
+            boxShadow: "0 0 50px 25px rgba(103, 232, 249, 0.2)",
           }}
         />
         {/* Highlight ring */}
-        <div 
+        <div
           className="absolute rounded-full"
           style={{
-            width: '360px',
-            height: '360px',
-            left: '30px',
-            top: '30px',
-            background: 'transparent',
-            border: '2px solid rgba(165, 243, 252, 0.35)',
-            boxShadow: '0 0 25px rgba(165, 243, 252, 0.2)',
+            width: "360px",
+            height: "360px",
+            left: "30px",
+            top: "30px",
+            background: "transparent",
+            border: "2px solid rgba(165, 243, 252, 0.35)",
+            boxShadow: "0 0 25px rgba(165, 243, 252, 0.2)",
           }}
         />
         {/* Specular highlight */}
-        <div 
+        <div
           className="absolute rounded-full"
           style={{
-            width: '100px',
-            height: '60px',
-            left: '100px',
-            top: '80px',
-            background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, transparent 100%)',
-            filter: 'blur(10px)',
-            borderRadius: '50%',
+            width: "100px",
+            height: "60px",
+            left: "100px",
+            top: "80px",
+            background: "linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, transparent 100%)",
+            filter: "blur(10px)",
+            borderRadius: "50%",
           }}
         />
       </motion.div>
 
       {/* Auto-scrolling project showcase on the right */}
       <ProjectShowcase />
-      
+
       <div className="relative z-10 container mx-auto px-6 pt-32 pb-20">
         <div className="max-w-3xl text-left">
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-          >
+          <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }}>
             <p className="text-accent mb-4 font-medium">Welcome to my portfolio</p>
           </motion.div>
 
@@ -97,9 +95,7 @@ export default function Home() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <h1 className="text-6xl md:text-7xl font-heading font-bold gradient-text mb-8">
-              Kushvanshi
-            </h1>
+            <h1 className="text-6xl md:text-7xl font-heading font-bold gradient-text mb-8">Kushvanshi</h1>
           </motion.div>
 
           <motion.p
@@ -108,8 +104,8 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="text-xl text-muted-foreground mb-12 max-w-xl leading-relaxed"
           >
-            Building scalable, secure, and high-performance web applications with 
-            modern technologies and innovative solutions.
+            Building scalable, secure, and high-performance web applications with modern technologies and innovative
+            solutions.
           </motion.p>
 
           <motion.div
@@ -137,13 +133,9 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.5 }}
             className="flex gap-4"
           >
-            <MagneticButton
-              strength={0.4}
-              range={120}
-              className="inline-block"
-            >
+            <MagneticButton strength={0.4} range={120} className="inline-block">
               <a
-                href="https://github.com/Kushvanshi-Shubh"
+                href="https://github.com/Kushvanshi-Shubham"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="glass-panel p-4 rounded-full hover-glow hover-lift block"
@@ -151,11 +143,7 @@ export default function Home() {
                 <Github className="h-6 w-6" />
               </a>
             </MagneticButton>
-            <MagneticButton
-              strength={0.4}
-              range={120}
-              className="inline-block"
-            >
+            <MagneticButton strength={0.4} range={120} className="inline-block">
               <a
                 href="https://linkedin.com/in/shubham-kushvanshi"
                 target="_blank"
@@ -165,11 +153,7 @@ export default function Home() {
                 <Linkedin className="h-6 w-6" />
               </a>
             </MagneticButton>
-            <MagneticButton
-              strength={0.4}
-              range={120}
-              className="inline-block"
-            >
+            <MagneticButton strength={0.4} range={120} className="inline-block">
               <a
                 href="mailto:shubhamkushvanshi@gmail.com"
                 className="glass-panel p-4 rounded-full hover-glow hover-lift block"

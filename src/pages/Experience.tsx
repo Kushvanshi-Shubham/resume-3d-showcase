@@ -11,15 +11,18 @@ const experiences = [
     achievements: [
       {
         title: "DAB Deployment Manager",
-        description: "Developed a comprehensive web-based management system for Azure Data API Builder entities, enabling seamless CRUD operations, deployment automation, and real-time synchronization with SQL Server database tables.",
+        description:
+          "Developed a comprehensive web-based management system for Azure Data API Builder entities, enabling seamless CRUD operations, deployment automation, and real-time synchronization with SQL Server database tables.",
       },
       {
         title: "Key Achievement",
-        description: "Successfully deployed a production-ready full-stack web application on Windows VM with IIS, featuring a modern dark-themed UI and complete backend API integration for managing database entities.",
+        description:
+          "Successfully deployed a production-ready full-stack web application on Windows VM with IIS, featuring a modern dark-themed UI and complete backend API integration for managing database entities.",
       },
       {
         title: "AI Fashion Attribute Extractor",
-        description: "Built a full-stack AI-powered system for managing fashion product hierarchies and attributes, with complete CRUD admin panel and JWT-based authentication featuring role-based access control.",
+        description:
+          "Built a full-stack AI-powered system for managing fashion product hierarchies and attributes, with complete CRUD admin panel and JWT-based authentication featuring role-based access control.",
       },
     ],
     techStack: ["Express.js", "Prisma", "PostgreSQL", "Supabase", "Redis", "React", "TypeScript", "Ant Design"],
@@ -33,7 +36,8 @@ const experiences = [
     achievements: [
       {
         title: "Web3 Game Testing",
-        description: "Tested and provided feedback on unreleased versions of web3 games, identifying bugs and suggesting improvements during a 7-month period.",
+        description:
+          "Tested and provided feedback on unreleased versions of web3 games, identifying bugs and suggesting improvements during a 7-month period.",
       },
       {
         title: "Technology Exposure",
@@ -54,9 +58,7 @@ export default function Experience() {
           transition={{ duration: 0.6 }}
           className="max-w-5xl mx-auto"
         >
-          <h1 className="text-5xl md:text-7xl font-bold mb-12 gradient-text">
-            Work Experience
-          </h1>
+          <h1 className="text-5xl md:text-7xl font-bold mb-12 gradient-text">Work Experience</h1>
 
           <div className="space-y-12">
             {experiences.map((exp, index) => (
@@ -71,13 +73,9 @@ export default function Experience() {
                   <div>
                     <div className="flex items-center gap-3 mb-2">
                       <Briefcase className="h-6 w-6 text-primary" />
-                      <h2 className="text-3xl font-bold text-foreground">
-                        {exp.company}
-                      </h2>
+                      <h2 className="text-3xl font-bold text-foreground">{exp.company}</h2>
                     </div>
-                    <h3 className="text-xl text-accent font-semibold mb-3">
-                      {exp.role}
-                    </h3>
+                    <h3 className="text-xl text-accent font-semibold mb-3">{exp.role}</h3>
                   </div>
                   <div className="flex flex-col gap-2 text-muted-foreground">
                     <div className="flex items-center gap-2">
@@ -94,22 +92,15 @@ export default function Experience() {
                 <div className="space-y-6 mb-8">
                   {exp.achievements.map((achievement, idx) => (
                     <div key={idx} className="border-l-2 border-primary pl-6">
-                      <h4 className="text-lg font-semibold text-foreground mb-2">
-                        {achievement.title}
-                      </h4>
-                      <p className="text-muted-foreground leading-relaxed">
-                        {achievement.description}
-                      </p>
+                      <h4 className="text-lg font-semibold text-foreground mb-2">{achievement.title}</h4>
+                      <p className="text-muted-foreground leading-relaxed">{achievement.description}</p>
                     </div>
                   ))}
                 </div>
 
                 <div className="flex flex-wrap gap-2">
                   {exp.techStack.map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-4 py-2 glass-panel text-sm font-medium text-accent"
-                    >
+                    <span key={tech} className="px-4 py-2 glass-panel text-sm font-medium text-accent">
                       {tech}
                     </span>
                   ))}

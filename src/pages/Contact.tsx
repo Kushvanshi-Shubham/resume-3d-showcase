@@ -18,7 +18,7 @@ export default function Contact() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Basic validation
     if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
       toast.error("Please fill in all fields");
@@ -71,13 +71,11 @@ export default function Contact() {
           transition={{ duration: 0.6 }}
           className="max-w-4xl mx-auto"
         >
-          <h1 className="text-5xl md:text-7xl font-bold mb-8 gradient-text">
-            Get In Touch
-          </h1>
+          <h1 className="text-5xl md:text-7xl font-bold mb-8 gradient-text">Get In Touch</h1>
 
           <p className="text-xl text-muted-foreground mb-12 leading-relaxed">
-            I'm always open to discussing new projects, creative ideas, or opportunities 
-            to be part of your visions. Feel free to reach out!
+            I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions.
+            Feel free to reach out!
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
@@ -108,7 +106,7 @@ export default function Contact() {
             </motion.a>
 
             <motion.a
-              href="https://github.com/Kushvanshi-Shubh"
+              href="https://github.com/Kushvanshi-Shubham"
               target="_blank"
               rel="noopener noreferrer"
               initial={{ opacity: 0, y: 20 }}
@@ -145,7 +143,7 @@ export default function Contact() {
                     transition={{ duration: 0.6, delay: 0.1 }}
                     className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/10 pointer-events-none"
                   />
-                  
+
                   {/* Animated check icon */}
                   <motion.div
                     initial={{ scale: 0, rotate: -180 }}
@@ -183,7 +181,7 @@ export default function Contact() {
                   >
                     Message Sent!
                   </motion.h2>
-                  
+
                   <motion.p
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -192,7 +190,7 @@ export default function Contact() {
                   >
                     Thank you for reaching out!
                   </motion.p>
-                  
+
                   <motion.p
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -207,27 +205,15 @@ export default function Contact() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.4, delay: 0.6 }}
                   >
-                    <Button
-                      onClick={handleSendAnother}
-                      variant="outline"
-                      size="lg"
-                      className="glass-panel hover-glow"
-                    >
+                    <Button onClick={handleSendAnother} variant="outline" size="lg" className="glass-panel hover-glow">
                       <Send className="mr-2 h-4 w-4" />
                       Send Another Message
                     </Button>
                   </motion.div>
                 </motion.div>
               ) : (
-                <motion.div
-                  key="form"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                >
-                  <h2 className="text-3xl font-bold mb-8 text-foreground">
-                    Send Me a Message
-                  </h2>
+                <motion.div key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                  <h2 className="text-3xl font-bold mb-8 text-foreground">Send Me a Message</h2>
 
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div>
@@ -274,9 +260,9 @@ export default function Contact() {
                       />
                     </div>
 
-                    <Button 
-                      type="submit" 
-                      size="lg" 
+                    <Button
+                      type="submit"
+                      size="lg"
                       className="w-full glass-panel hover-glow group"
                       disabled={isSubmitting}
                     >
