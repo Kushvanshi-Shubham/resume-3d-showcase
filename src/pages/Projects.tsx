@@ -66,10 +66,14 @@ export default function Projects() {
                     </div>
 
                     <div className="flex gap-3">
-                      <Button variant="outline" size="sm">
-                        <Github className="h-4 w-4 mr-2" />
-                        Code
-                      </Button>
+                      {project.githubUrl && (
+                        <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                          <Button variant="outline" size="sm">
+                            <Github className="h-4 w-4 mr-2" />
+                            Code
+                          </Button>
+                        </a>
+                      )}
                       <Link to={`/projects/${project.id}`}>
                         <LiquidButton className="text-sm">
                           <ArrowRight className="h-4 w-4 mr-2" />

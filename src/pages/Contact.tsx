@@ -197,7 +197,7 @@ export default function Contact() {
                     transition={{ duration: 0.4, delay: 0.5 }}
                     className="text-muted-foreground/80 mb-8"
                   >
-                    I'll get back to you as soon as possible. Check your inbox for a confirmation email.
+                    I'll get back to you as soon as possible.
                   </motion.p>
 
                   <motion.div
