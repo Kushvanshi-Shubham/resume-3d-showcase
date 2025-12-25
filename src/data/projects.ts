@@ -16,10 +16,10 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    id: "brainly",
-    title: "BRAINLY Web App",
+    id: "braintox",
+    title: "BRAINTOX Web App",
     description: "A secure content-sharing platform with RESTful API architecture. Features JWT authentication, MongoDB data persistence, and comprehensive user management system.",
-    longDescription: "BRAINLY is a comprehensive content-sharing platform designed to facilitate secure and efficient knowledge exchange. The application implements a robust RESTful API architecture that enables seamless communication between the frontend and backend systems. With JWT-based authentication, users can securely access their content while maintaining session integrity across multiple devices.",
+    longDescription: "BRAINTOX is a comprehensive content-sharing platform designed to facilitate secure and efficient knowledge exchange. The application implements a robust RESTful API architecture that enables seamless communication between the frontend and backend systems. With JWT-based authentication, users can securely access their content while maintaining session integrity across multiple devices.",
     techStack: ["Node.js", "Express.js", "MongoDB", "JWT", "REST API"],
     highlights: [
       "Secure authentication system",
@@ -46,7 +46,7 @@ export const projects: Project[] = [
     ],
     status: "completed",
     year: "2024",
-    liveUrl: "https://brainly-fe-coral.vercel.app/",
+    liveUrl: "https://braintox-fe-coral.vercel.app/",
     githubUrl: "https://github.com/Kushvanshi-Shubham/brainly-fe",
   },
   {
