@@ -47,7 +47,7 @@ export const projects: Project[] = [
     status: "completed",
     year: "2024",
     liveUrl: "https://braintox-fe-coral.vercel.app/",
-    githubUrl: "https://github.com/Kushvanshi-Shubham/brainly-fe",
+    githubUrl: "https://github.com/Kushvanshi-Shubham/braintox-fe",
   },
   {
     id: "rbac",
