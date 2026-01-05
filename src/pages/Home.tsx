@@ -171,7 +171,7 @@ export default function Home() {
           className="mt-32 grid grid-cols-1 md:grid-cols-3 gap-8"
         >
           {[
-            { number: "2+", label: "Years Experience" },
+            { number: "1.5+", label: "Years Experience" },
             { number: "10+", label: "Projects Completed" },
             { number: "5+", label: "Technologies Mastered" },
           ].map((stat, index) => (
