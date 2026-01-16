@@ -172,7 +172,7 @@ export default function Home() {
         >
           {[
             { number: "1.5+", label: "Years Experience" },
-            { number: "10+", label: "Projects Completed" },
+            { number: "5+", label: "Projects Completed" },
             { number: "5+", label: "Technologies Mastered" },
           ].map((stat, index) => (
             <ScrollReveal key={index} variant="fadeInUp" delay={index * 0.1}>
