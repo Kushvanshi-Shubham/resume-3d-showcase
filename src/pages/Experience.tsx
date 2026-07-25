@@ -7,25 +7,56 @@ const experiences = [
     role: "IT Developer",
     type: "On-site",
     duration: "Sept 2024 - Present",
-    location: "India",
+    location: "Gurugram, India",
     achievements: [
       {
-        title: "DAB Deployment Manager",
+        title: "V2 SRM Portal",
         description:
-          "Developed a comprehensive web-based management system for Azure Data API Builder entities, enabling seamless CRUD operations, deployment automation, and real-time synchronization with SQL Server database tables.",
+          "Built and scaled a production-grade Supplier Relationship Management platform connecting 200+ vendors with buyers, QC teams, and category managers. Automated the complete procurement lifecycle including Purchase Orders, ASN, Quality Control, Goods Receipt (GRC), and TNA milestone tracking. Architected 150+ Supabase Edge Functions handling 260K+ SAP records and integrated 5+ SAP RFC modules.",
       },
       {
-        title: "Key Achievement",
+        title: "Data Engineering (SAP to Snowflake)",
         description:
-          "Successfully deployed a production-ready full-stack web application on Windows VM with IIS, featuring a modern dark-themed UI and complete backend API integration for managing database entities.",
+          "Built Python ETL pipelines extracting SAP S/4HANA data via OData and RFC APIs into Snowflake BRONZE layer covering 25+ tables and 700M+ rows. Successfully loaded transactional datasets exceeding 300M rows with complete reconciliation, and developed high-performance bulk-loading pipelines capable of importing 3.5M rows in under one minute.",
+      },
+      {
+        title: "PO Wise Wardrobe",
+        description:
+          "Designed and implemented a Purchase Order planning module integrated directly with SAP. Built RBAC approval workflows and developed an Open-To-Buy budgeting dashboard with Excel bulk upload and SAP write-back integration.",
+      },
+      {
+        title: "Azure DAB Deployment Manager",
+        description:
+          "Built a comprehensive web platform for managing Azure Data API Builder entities with CRUD operations, deployment automation, and SQL Server synchronization. Automated Docker image builds to Azure Container Registry (ACR) and deployed production releases on Windows Server using IIS.",
       },
       {
         title: "AI Fashion Attribute Extractor",
         description:
-          "Built a full-stack AI-powered system for managing fashion product hierarchies and attributes, with complete CRUD admin panel and JWT-based authentication featuring role-based access control.",
+          "Developed a full-stack AI-powered platform for managing fashion product hierarchies and automated attribute extraction. Built complete CRUD administration panels with JWT authentication, RBAC, Redis caching, and scalable REST APIs.",
       },
     ],
-    techStack: ["Express.js", "Prisma", "PostgreSQL", "Supabase", "Redis", "React", "TypeScript", "Ant Design"],
+    techStack: [
+      "React",
+      "TypeScript",
+      "Node.js",
+      "Express.js",
+      "PostgreSQL",
+      "Supabase",
+      "Cloudflare R2",
+      "SAP RFC",
+      "SAP OData",
+      "Snowflake",
+      "Python",
+      "Pandas",
+      "Azure ACR",
+      "IIS",
+      "SQL Server",
+      "Redis",
+      "GitHub Actions",
+      "WhatsApp Business API",
+      "Prisma",
+      "Ant Design",
+    ],
   },
   {
     company: "IndiGG",
