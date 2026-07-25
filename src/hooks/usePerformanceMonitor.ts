@@ -15,7 +15,7 @@ export function usePerformanceMonitor() {
 
   useEffect(() => {
     let animationFrameId: number;
-    let intervalId: NodeJS.Timeout;
+    let intervalId: ReturnType<typeof setInterval>;
 
     const measureFps = () => {
       const now = performance.now();
