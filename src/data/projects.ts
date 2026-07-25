@@ -16,11 +16,55 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    id: "v2-srm-portal",
+    title: "V2 SRM Portal",
+    description:
+      "Enterprise-scale Supplier Relationship Management platform connecting 200+ vendors with buyers, QC teams, and category managers. Automates the full procurement lifecycle with deep SAP integration.",
+    longDescription:
+      "The V2 SRM Portal is a production-grade Supplier Relationship Management platform built at V2 Retail to automate the complete procurement lifecycle. It connects 200+ vendors with buyers, quality control teams, and category managers, orchestrating Purchase Orders, ASN, Quality Control, Goods Receipt (GRC), and TNA milestone tracking end-to-end. The system is powered by 150+ Supabase Edge Functions handling 260K+ SAP records with real-time synchronization, and integrates 5+ SAP RFC modules along with WhatsApp Business API for vendor communication.",
+    techStack: [
+      "React",
+      "TypeScript",
+      "Node.js",
+      "PostgreSQL",
+      "Supabase",
+      "Cloudflare R2",
+      "SAP RFC",
+      "WhatsApp Business API",
+    ],
+    highlights: [
+      "200+ vendors onboarded",
+      "150+ Supabase Edge Functions",
+      "260K+ SAP records synchronized",
+      "5+ SAP RFC module integrations",
+    ],
+    features: [
+      "Automated Purchase Order lifecycle management",
+      "Advanced Shipping Notice (ASN) workflow",
+      "Quality Control and Goods Receipt (GRC) tracking",
+      "TNA milestone tracking with alerts",
+      "Real-time SAP synchronization via RFC modules",
+      "WhatsApp Business API notifications to vendors",
+    ],
+    challenges: [
+      "Handling 260K+ SAP records with reliable real-time sync",
+      "Orchestrating 150+ serverless edge functions cohesively",
+      "Designing a permission model spanning vendors, QC, and category managers",
+    ],
+    learnings: [
+      "Building large-scale Supabase Edge Function architectures",
+      "SAP RFC integration patterns and error handling",
+      "Enterprise procurement domain workflows",
+    ],
+    status: "completed",
+    year: "2025",
+  },
+  {
     id: "braintox",
     title: "BRAINTOX Web App",
-    description: "A secure content-sharing platform with RESTful API architecture. Features JWT authentication, MongoDB data persistence, and comprehensive user management system.",
-    longDescription: "BRAINTOX is a comprehensive content-sharing platform designed to facilitate secure and efficient knowledge exchange. The application implements a robust RESTful API architecture that enables seamless communication between the frontend and backend systems. With JWT-based authentication, users can securely access their content while maintaining session integrity across multiple devices.",
-    techStack: ["Node.js", "Express.js", "MongoDB", "JWT", "REST API"],
+    description: "Secure second-brain knowledge management platform with JWT authentication, content sharing, link management, and responsive dashboards.",
+    longDescription: "BrainTox is a secure second-brain knowledge management platform for organizing, sharing, and revisiting content. It features JWT authentication, link and note management, content sharing capabilities, and responsive dashboards built with a modern React + TypeScript stack backed by MongoDB.",
+    techStack: ["React", "TypeScript", "Node.js", "Express.js", "MongoDB", "Mongoose", "Tailwind CSS", "Shadcn UI", "JWT"],
     highlights: [
       "Secure authentication system",
       "RESTful API design",
@@ -51,10 +95,10 @@ export const projects: Project[] = [
   },
   {
     id: "rbac",
-    title: "RBAC Web App",
-    description: "Internal administrative tool for role-based access control. Built with modern Next.js architecture and Supabase backend, featuring dynamic permission management.",
-    longDescription: "The RBAC (Role-Based Access Control) Web App is an enterprise-grade administrative tool designed to manage user permissions and access levels across complex organizational structures. Built with Next.js for optimal performance and Supabase for robust backend services, this application provides a flexible and secure way to define roles, assign permissions, and audit user activities.",
-    techStack: ["Next.js", "TypeScript", "MongoDB", "Mongoose", "Shadcn UI", "Tailwind CSS", "Framer Motion"],
+    title: "RBAC Configuration Tool",
+    description: "Role-based access management application enabling administrators to manage users, permissions, and authentication with Supabase.",
+    longDescription: "The RBAC Configuration Tool is a role-based access management application that lets administrators manage users, permissions, and authentication flows. Built with Next.js and Supabase, it provides a flexible and secure way to define roles, assign granular permissions, and audit user activities.",
+    techStack: ["Next.js", "React", "TypeScript", "Supabase", "PostgreSQL", "Tailwind CSS", "Shadcn UI"],
     highlights: [
       "Role-based access control",
       "Modern UI with animations",

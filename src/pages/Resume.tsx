@@ -39,7 +39,7 @@ export default function Resume() {
           <div className="glass-panel p-8 md:p-12">
             <div className="mb-12">
               <h2 className="text-4xl font-bold mb-2 text-foreground">Shubham Kushvanshi</h2>
-              <p className="text-xl text-accent font-semibold mb-4">MERN Stack Developer</p>
+              <p className="text-xl text-accent font-semibold mb-4">Full Stack Developer</p>
               <div className="flex flex-wrap gap-4 text-muted-foreground">
                 <span>shubhamkushvanshi@gmail.com</span>
                 <span>•</span>
@@ -56,11 +56,11 @@ export default function Resume() {
             <section className="mb-10">
               <h3 className="text-2xl font-bold mb-4 text-primary">Professional Summary</h3>
               <p className="text-muted-foreground leading-relaxed">
-                A highly motivated and skilled MERN Stack Developer with a strong foundation in React.js and Next.js
-                with Node.js, Express.js, and RESTful API development. Eager to contribute to a forward-thinking fintech
-                startup, bringing a passion for building scalable, secure, and high-performance backend systems. Proven
-                ability to quickly learn and apply new technologies, with hands-on experience in database management and
-                a keen interest in contributing to the future of financial technology.
+                Full Stack Developer with experience building enterprise-scale procurement platforms, AI-powered
+                applications, SAP integrations, and high-volume data engineering pipelines. Skilled in designing
+                scalable backend systems, real-time synchronization services, REST APIs, and cloud deployments using
+                React, Node.js, TypeScript, PostgreSQL, Supabase, Snowflake, Azure, and SQL Server. Passionate about
+                building reliable, production-ready software with clean architecture and measurable business impact.
               </p>
             </section>
 
@@ -68,24 +68,36 @@ export default function Resume() {
               <h3 className="text-2xl font-bold mb-4 text-primary">Technical Skills</h3>
               <div className="space-y-3">
                 <div>
-                  <span className="font-semibold text-accent">Backend:</span>
-                  <span className="text-muted-foreground ml-2">
-                    Node.js, Express.js, RESTful APIs, API Security, Microservices, Prisma, Mongoose, JWT
-                  </span>
+                  <span className="font-semibold text-accent">Languages:</span>
+                  <span className="text-muted-foreground ml-2">JavaScript, TypeScript, SQL, Python</span>
                 </div>
                 <div>
                   <span className="font-semibold text-accent">Frontend:</span>
                   <span className="text-muted-foreground ml-2">
-                    React.js, Next.js, HTML, CSS, JavaScript, TypeScript
+                    React.js, Next.js, HTML5, CSS3, Tailwind CSS, Shadcn UI, Ant Design
+                  </span>
+                </div>
+                <div>
+                  <span className="font-semibold text-accent">Backend:</span>
+                  <span className="text-muted-foreground ml-2">
+                    Node.js, Express.js, REST APIs, JWT, Prisma, Mongoose, Supabase Edge Functions, Deno
                   </span>
                 </div>
                 <div>
                   <span className="font-semibold text-accent">Databases:</span>
-                  <span className="text-muted-foreground ml-2">PostgreSQL, MongoDB</span>
+                  <span className="text-muted-foreground ml-2">PostgreSQL, MongoDB, SQL Server, Snowflake, Redis</span>
                 </div>
                 <div>
                   <span className="font-semibold text-accent">Cloud & DevOps:</span>
-                  <span className="text-muted-foreground ml-2">AWS (basic), Git, WebSockets, Postman</span>
+                  <span className="text-muted-foreground ml-2">
+                    Azure ACR, IIS, Cloudflare R2, GitHub Actions, Supabase Realtime
+                  </span>
+                </div>
+                <div>
+                  <span className="font-semibold text-accent">Enterprise:</span>
+                  <span className="text-muted-foreground ml-2">
+                    SAP RFC, SAP OData, ETL Pipelines, Data Engineering, WebSockets, Microservices, Git, Postman
+                  </span>
                 </div>
               </div>
             </section>
@@ -96,6 +108,15 @@ export default function Resume() {
                 <p className="font-semibold text-foreground">IILM College of Engineering & Technology, Greater Noida</p>
                 <p className="text-muted-foreground">Bachelor of Technology, Computer Science</p>
               </div>
+            </section>
+
+            <section className="mb-10">
+              <h3 className="text-2xl font-bold mb-4 text-primary">Certifications</h3>
+              <ul className="list-disc list-inside space-y-2 text-muted-foreground">
+                <li>Full Stack Web Development — Udemy</li>
+                <li>Full Stack Web3 Development — Udemy</li>
+                <li>Ethereum Blockchain Developer — Udemy</li>
+              </ul>
             </section>
           </div>
         </motion.div>
